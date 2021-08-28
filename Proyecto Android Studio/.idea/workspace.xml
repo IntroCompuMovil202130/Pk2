@@ -23,7 +23,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9869d57d-aad9-4935-a3e8-61c7734b5235" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Imagenes y recursos/login.psd" beforeDir="false" afterPath="$PROJECT_DIR$/../Imagenes y recursos/login.psd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PK2/app/src/main/res/font/roboto_bold.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PK2/app/src/main/res/font/roboto_thin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PK2/app/src/main/res/values/font_certs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PK2/app/src/main/res/values/preloaded_fonts.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PK2/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PK2/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PK2/app/src/main/res/drawable/forma_input.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PK2/app/src/main/res/drawable/delineado_figura.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_chat.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_chat.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_perfil.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_perfil.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_registro.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_registro.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +75,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="740" y="271" key="FileChooserDialogImpl" timestamp="1628984026519">
