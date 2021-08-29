@@ -52,7 +52,7 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView1"
+                android:id="@+id/habSencilla"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
@@ -69,12 +69,12 @@
                     android:layout_margin="10dp">
 
                     <com.google.android.material.imageview.ShapeableImageView
+                        app:shapeAppearanceOverlay="@style/RoundSquare"
                         android:layout_width="193dp"
                         android:layout_height="139dp"
                         android:padding="10dp"
                         android:scaleType="fitXY"
-                        app:shapeAppearanceOverlay="@style/RoundSquare"
-                        app:srcCompat="@drawable/habitacion2" />
+                        app:srcCompat="@drawable/habitacion4" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

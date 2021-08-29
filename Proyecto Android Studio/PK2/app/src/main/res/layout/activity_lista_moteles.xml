@@ -74,7 +74,8 @@
                     android:layout_margin="10dp"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <com.google.android.material.imageview.ShapeableImageView
+                        app:shapeAppearanceOverlay="@style/RoundSquare"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="fitXY"
@@ -118,7 +119,8 @@
                     android:layout_margin="10dp"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <com.google.android.material.imageview.ShapeableImageView
+                        app:shapeAppearanceOverlay="@style/RoundSquare"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="fitXY"
@@ -163,8 +165,8 @@
                     android:layout_margin="10dp"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/test1"
+                    <com.google.android.material.imageview.ShapeableImageView
+                        app:shapeAppearanceOverlay="@style/RoundSquare"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="fitXY"
