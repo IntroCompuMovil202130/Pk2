@@ -45,7 +45,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Coordenadas motel sara
         LatLng sydney = new LatLng(19.4617664, -99.1220647);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Mexico"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
