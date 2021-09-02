@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_lista_habitaciones">
+    android:layout_margin="20dp"
+    tools:context=".Lista_habitaciones">
 
 
     <ImageView
         android:id="@+id/portada"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="271dp"
         android:foreground="#E22E2853"
         android:foregroundTintMode="src_atop"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/textView9"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/motel4" />
@@ -24,27 +25,53 @@
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:text="Habitaciones"
-        android:textColor="@color/moraitoMelo"
+        android:textColor="#6C6C6C"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.193"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/portada" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10">
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:text="Calificacion General"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_gravity="left"
+            app:srcCompat="@drawable/calificacion5" />
+    </LinearLayout>
+
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="408dp"
-        android:layout_height="428dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/portada"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/textView9">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -69,11 +96,11 @@
                     android:layout_margin="10dp">
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        app:shapeAppearanceOverlay="@style/RoundSquare"
                         android:layout_width="193dp"
                         android:layout_height="139dp"
                         android:padding="10dp"
                         android:scaleType="fitXY"
+                        app:shapeAppearanceOverlay="@style/RoundSquare"
                         app:srcCompat="@drawable/habitacion4" />
 
                     <LinearLayout
@@ -85,8 +112,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="5dp"
-                            android:textColor="@color/moraitoMelo"
                             android:text="Sencilla"
+                            android:textColor="@color/moraitoMelo"
                             android:textSize="20sp"
                             android:textStyle="bold" />
 
@@ -205,60 +232,28 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="177dp"
-        android:layout_marginTop="87dp"
-        android:layout_marginEnd="176dp"
-        android:layout_marginBottom="165dp"
+        android:layout_marginTop="52dp"
         android:text="Motel Sara"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/portada"
-        app:layout_constraintEnd_toEndOf="@+id/portada"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="@+id/portada"
-        app:layout_constraintTop_toTopOf="@+id/portada"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="125dp"
-        android:text="Calificacion General"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/portada"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.325"
-        app:layout_constraintStart_toStartOf="@+id/portada"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="20dp"
-        android:layout_gravity="left"
-        app:layout_constraintBottom_toTopOf="@+id/textView12"
-        app:layout_constraintEnd_toEndOf="@+id/portada"
-        app:layout_constraintHorizontal_bias="0.081"
-        app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"
-        app:layout_constraintVertical_bias="0.466"
-        app:srcCompat="@drawable/calificacion5" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/portada" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="10dp"
         android:text="Direccion: Calle 63 # 13-40"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <Button
         android:id="@+id/botonVamos"
@@ -268,6 +263,7 @@
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:backgroundTint="@color/moraitoMelo"
+        app:cornerRadius="45dp"
         app:layout_constraintBottom_toBottomOf="@+id/portada"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

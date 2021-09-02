@@ -33,17 +33,18 @@
             android:name=".MapsActivity"
             android:exported="true"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".activity_descripcion_habitacion" />
-        <activity android:name=".activity_lista_habitaciones" />
+        <activity android:name=".Descripcion_habitacion" />
+        <activity android:name=".Lista_habitaciones" />
         <activity android:name=".ListaMoteles" />
         <activity android:name=".Registro" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".LogIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Perfil" />
 
         <meta-data
             android:name="preloaded_fonts"

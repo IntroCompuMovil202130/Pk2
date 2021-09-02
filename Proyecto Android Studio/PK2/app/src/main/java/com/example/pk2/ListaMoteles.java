@@ -15,7 +15,6 @@ public class ListaMoteles extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_moteles);
-        getWindow().setStatusBarColor(getResources().getColor(R.color.moraitoMelo));
 
         //inflate
         bPerfil = findViewById(R.id.botonPerifl);
@@ -24,7 +23,7 @@ public class ListaMoteles extends AppCompatActivity {
         bPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), perfil.class);
+                Intent intent = new Intent(v.getContext(), Perfil.class);
                 startActivity(intent);
             }
         });
@@ -32,7 +31,7 @@ public class ListaMoteles extends AppCompatActivity {
         selecMotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), activity_lista_habitaciones.class);
+                Intent intent = new Intent(v.getContext(), Lista_habitaciones.class);
                 startActivity(intent);
             }
         });

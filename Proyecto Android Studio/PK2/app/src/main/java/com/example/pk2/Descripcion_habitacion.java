@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class activity_descripcion_habitacion extends AppCompatActivity {
+public class Descripcion_habitacion extends AppCompatActivity {
 
 
     @Override

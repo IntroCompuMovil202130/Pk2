@@ -38,7 +38,8 @@
             android:layout_weight="10"
             android:background="#00FFFFFF"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/logo2" />
+            app:srcCompat="@drawable/logo2"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
