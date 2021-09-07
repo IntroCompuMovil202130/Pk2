@@ -155,6 +155,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="30dp"
                 android:background="@drawable/delineado_mororado"
                 android:clickable="false"
                 app:cardCornerRadius="10dp"
@@ -167,10 +168,10 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        app:shapeAppearanceOverlay="@style/RoundSquare"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="fitXY"
+                        app:shapeAppearanceOverlay="@style/RoundSquare"
                         app:srcCompat="@drawable/motel1" />
 
                     <TextView
