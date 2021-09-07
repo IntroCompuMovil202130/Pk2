@@ -45,6 +45,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Perfil" />
+        <activity android:name=".ChatActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"
