@@ -25,7 +25,7 @@ public class Lista_habitaciones extends AppCompatActivity {
         Bvamos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intVAmos = new Intent(v.getContext(),MapsActivity.class);
+                Intent intVAmos = new Intent(v.getContext(),Mapa.class);
                 startActivity(intVAmos);
             }
         });

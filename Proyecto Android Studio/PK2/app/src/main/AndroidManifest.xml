@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pk2">
+    package="com.example.pk2" >
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the "MyLocation" functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -14,13 +16,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PK2">
-        <activity
-            android:name=".Registro_duenio"
-            android:exported="true" />
-        <activity
-            android:name=".AdmLogActivity"
-            android:exported="true" />
+        android:theme="@style/Theme.PK2" >
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -34,14 +31,20 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".Mapa"
             android:exported="true"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_mapa" />
+        <activity
+            android:name=".Registro_duenio"
+            android:exported="true" />
+        <activity
+            android:name=".AdmLogActivity"
+            android:exported="true" />
         <activity android:name=".Descripcion_habitacion" />
         <activity android:name=".Lista_habitaciones" />
         <activity android:name=".ListaMoteles" />
         <activity android:name=".Registro" />
-        <activity android:name=".LogIn">
+        <activity android:name=".LogIn" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
