@@ -35,13 +35,13 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.353" />
+        app:layout_constraintVertical_bias="0.305" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/textoB"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -117,7 +117,7 @@
 
     <Button
         android:id="@+id/botonLogin"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:backgroundTint="#FFFFFF"
@@ -131,19 +131,56 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textoContasenna" />
 
-    <Button
-        android:id="@+id/botonRegister"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/white"
-        android:text="Registrarse"
-        android:textAllCaps="false"
-        android:textColor="#777777"
-        android:textStyle="bold"
-        app:cornerRadius="45dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView21">
+
+        <Button
+            android:id="@+id/botonRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:text="Soy Usuario"
+            android:textAllCaps="false"
+            android:textColor="#777777"
+            android:textStyle="bold"
+            app:cornerRadius="45dp" />
+
+        <Button
+            android:id="@+id/botonRegister2"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:text="Soy Dueño"
+            android:textAllCaps="false"
+            android:textColor="#777777"
+            android:textStyle="bold"
+            app:cornerRadius="45dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Tambien puedes registrarte"
+        android:textColor="#FFFFFF"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonLogin" />
 

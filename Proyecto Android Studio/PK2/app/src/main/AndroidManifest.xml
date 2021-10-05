@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PK2">
         <activity
+            android:name=".Registro_duenio"
+            android:exported="true" />
+        <activity
             android:name=".AdmLogActivity"
             android:exported="true" />
         <!--

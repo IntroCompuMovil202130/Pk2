@@ -15,6 +15,7 @@ public class LogIn extends AppCompatActivity {
 
     Button bLogin;
     Button bReg;
+    Button bReg2;
     TextInputEditText usuario, contraseña;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class LogIn extends AppCompatActivity {
         //inflate
         bLogin = findViewById(R.id.botonLogin);
         bReg = findViewById(R.id.botonRegister);
+        bReg2 = findViewById(R.id.botonRegister2);
         usuario = findViewById(R.id.textoUsuario);
         contraseña = findViewById(R.id.textoContasenna);
         //llamado pantalla register
@@ -37,6 +39,14 @@ public class LogIn extends AppCompatActivity {
             }
         });
 
+        //llamado a el registro del duenio
+        bReg2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Registro_duenio.class);
+                startActivity(intent);
+            }
+        });
         //llamado pantalla login
 
         bLogin.setOnClickListener(new View.OnClickListener() {
