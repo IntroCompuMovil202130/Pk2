@@ -21,7 +21,7 @@ public class Lista_habitaciones extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         //inflate
         selecHabitacion = findViewById(R.id.habSencilla);
-        Bvamos = findViewById(R.id.botonVamos);
+        Bvamos = findViewById(R.id.btnEditInf);
         Bvamos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

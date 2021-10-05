@@ -7,11 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputEditText;
 
 public class LogIn extends AppCompatActivity {
 
     Button bLogin;
     Button bReg;
+    TextInputEditText usuario, contraseña;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +25,8 @@ public class LogIn extends AppCompatActivity {
         //inflate
         bLogin = findViewById(R.id.botonLogin);
         bReg = findViewById(R.id.botonRegister);
-
+        usuario = findViewById(R.id.textoUsuario);
+        contraseña = findViewById(R.id.textoContasenna);
         //llamado pantalla register
 
         bReg.setOnClickListener(new View.OnClickListener() {
@@ -37,8 +42,14 @@ public class LogIn extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ListaMoteles.class);
-                startActivity(intent);
+                if(usuario.getText().toString().equals("adm"))
+                {
+                    Intent intent = new Intent(v.getContext(), AdmLogActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(v.getContext(), ListaMoteles.class);
+                    startActivity(intent);
+                }
             }
         });
     }
