@@ -11,6 +11,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -22,6 +24,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -40,6 +43,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -69,15 +73,13 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private ActivityMapaBinding binding;
 
-    private Marker posicionActual, posicionMotel;
-    private Marker posicionActualLong;
+    private Marker posicionActual;
     String permission = Manifest.permission.ACCESS_FINE_LOCATION;
     int permission_id = 2;
-    LatLng actual, marcada;
-    private LatLng mOrigin;
+    LatLng actual ;
     private LatLng mDestination;
     private Polyline mPolyline;
-    ArrayList<LatLng> mMarkerPoints;
+    String nombreDirMoterl = "";
 
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationRequest locationRequest;
@@ -90,33 +92,40 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
     static final int REQUTEST_CHECK_SETTINGS = 3;
     boolean is_gps_enabled = false;
 
-
     //map Search
     Geocoder mGeocoder;
+
+    // variables de la pantalla
+
+    Button botonChat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Intent intent = getIntent();
+        nombreDirMoterl = intent.getStringExtra("Direccion");
+
         binding = ActivityMapaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         mGeocoder = new Geocoder(this);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         lightSensorListener = lightSensorCode();
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         locationRequest = createLocationRequest();
         locationCallback = createLocationCallback();
-
-
         requestPermission(Mapa.this, permission, "permiso para acceder al gps", permission_id);
         mapFragment.getMapAsync(this);
 
-        mMarkerPoints = new ArrayList<>();
+        //inflate
+
+        botonChat = findViewById(R.id.btChat);
+
+        f =
     }
+
+    private
 
     private SensorEventListener lightSensorCode() {
         SensorEventListener sel = new SensorEventListener() {
@@ -157,17 +166,17 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
             public void onLocationResult(@NonNull LocationResult locationResult) {
                 super.onLocationResult(locationResult);
                 Location location = locationResult.getLastLocation();
-                if (location != null) {
+                if (location != null && nombreDirMoterl != "") {
                     if(posicionActual != null){
                         posicionActual.remove();
                     }
                     Log.i("tag", "location: " + location.toString());
                     actual = new LatLng(location.getLatitude(), location.getLongitude());
-                    posicionActual = mMap.addMarker(new MarkerOptions().position(actual).title(""));
+                    posicionActual = mMap.addMarker(new MarkerOptions().position(actual).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
 
-                    mDestination = searchByName("Universidad javeriana");
-                    mMap.addMarker(new MarkerOptions().position(mDestination).title("pene").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                    mDestination = searchByName(nombreDirMoterl);
+                    mMap.addMarker(new MarkerOptions().position(mDestination).title(nombreDirMoterl).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                     drawRoute();
                 }
             }
@@ -267,19 +276,6 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.zoomTo(16));
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(@NonNull LatLng latLng) {
-                String name = searchByLocation(latLng.latitude, latLng.longitude);
-                if(!"".equals(name)){
-                    posicionMotel = mMap.addMarker(new MarkerOptions().position(latLng).title(name).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-                    marcada = latLng;
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                }
-            }
-        });
-
-
     }
 
 
@@ -303,24 +299,7 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         return position;
     }
 
-    private String searchByLocation(double latitude, double longitude) {
-        String addressName = "";
-        try {
-            List<Address> addresses = mGeocoder.getFromLocation(latitude, longitude, 2);
-            if (addresses != null && !addresses.isEmpty()) {
-                Address addressResult = addresses.get(0);
-                addressName = addressResult.getAddressLine(0);
-                Log.i("MapsApp", addressResult.getFeatureName());
-            } else {
-                Toast.makeText(Mapa.this, "Direccion no encontrada", Toast.LENGTH_SHORT).show();
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return addressName;
-    }
-
+    // implementacion de las rutas basados en el codigo enontrado en el siguiente link:
     private void drawRoute(){
 
         // Getting URL to the Google Directions API
@@ -476,7 +455,7 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
 
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
-                lineOptions.width(8);
+                lineOptions.width(14);
                 lineOptions.color(R.color.moraitoMelo);
             }
 
@@ -487,8 +466,7 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
                 }
                 mPolyline = mMap.addPolyline(lineOptions);
 
-            }else
-                Toast.makeText(getApplicationContext(),"No route is found", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

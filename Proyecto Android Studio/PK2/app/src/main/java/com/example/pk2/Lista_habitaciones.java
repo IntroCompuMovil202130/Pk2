@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class Lista_habitaciones extends AppCompatActivity {
 
     CardView selecHabitacion;
     Button Bvamos;
+    TextView txDireccion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +24,14 @@ public class Lista_habitaciones extends AppCompatActivity {
         //inflate
         selecHabitacion = findViewById(R.id.habSencilla);
         Bvamos = findViewById(R.id.btnEditInf);
+        txDireccion = findViewById(R.id.textoDireccion);
+
+        txDireccion.setText("Calle 63 # 13-40");
         Bvamos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intVAmos = new Intent(v.getContext(),Mapa.class);
+                intVAmos.putExtra("Direccion", txDireccion.getText());
                 startActivity(intVAmos);
             }
         });

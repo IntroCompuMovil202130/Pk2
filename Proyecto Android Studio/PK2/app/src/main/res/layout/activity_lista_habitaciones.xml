@@ -244,11 +244,10 @@
         app:layout_constraintTop_toTopOf="@+id/portada" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/textoDireccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Direccion: Calle 63 # 13-40"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -268,6 +267,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/portada"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintTop_toBottomOf="@+id/textoDireccion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
