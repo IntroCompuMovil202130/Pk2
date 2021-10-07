@@ -14,7 +14,7 @@ public class Lista_habitaciones extends AppCompatActivity {
 
     CardView selecHabitacion;
     Button Bvamos;
-    TextView txDireccion;
+    TextView txDireccion, txNombreMotel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +25,18 @@ public class Lista_habitaciones extends AppCompatActivity {
         selecHabitacion = findViewById(R.id.habSencilla);
         Bvamos = findViewById(R.id.btnEditInf);
         txDireccion = findViewById(R.id.textoDireccion);
+        txNombreMotel = findViewById(R.id.textoHabitacionesNombreMotel);
 
-        txDireccion.setText("Calle 63 # 13-40");
+        // asingancion de valores
+        txDireccion.setText("Cl. 102 # 68d-17");
+        txNombreMotel.setText("Motel Sara");
+
         Bvamos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intVAmos = new Intent(v.getContext(),Mapa.class);
                 intVAmos.putExtra("Direccion", txDireccion.getText());
+                intVAmos.putExtra("NombreMotel", txNombreMotel.getText());
                 startActivity(intVAmos);
             }
         });

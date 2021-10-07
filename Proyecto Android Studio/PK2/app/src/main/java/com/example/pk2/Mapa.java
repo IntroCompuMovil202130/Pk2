@@ -24,7 +24,9 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -96,17 +98,27 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
     Geocoder mGeocoder;
 
     // variables de la pantalla
-
     Button botonChat;
+    TextView txDireccion, txNombreMotel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityMapaBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        //inflate
+        botonChat = findViewById(R.id.btChat);
+        txDireccion = findViewById(R.id.textoMapaDireccion);
+        txNombreMotel = findViewById(R.id.textMapaNombreMotel);
+
+        botonChat.setOnClickListener(new botonListener());
 
         Intent intent = getIntent();
         nombreDirMoterl = intent.getStringExtra("Direccion");
+        txNombreMotel.setText(intent.getStringExtra("NombreMotel").toString());
+        txDireccion.setText(intent.getStringExtra("Direccion").toString());
 
-        binding = ActivityMapaBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        //mapa
         mGeocoder = new Geocoder(this);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
@@ -117,16 +129,17 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         locationCallback = createLocationCallback();
         requestPermission(Mapa.this, permission, "permiso para acceder al gps", permission_id);
         mapFragment.getMapAsync(this);
-
-        //inflate
-
-        botonChat = findViewById(R.id.btChat);
-
-        f =
     }
 
-    private
+    private class botonListener implements View.OnClickListener {
 
+        @Override
+        public void onClick(View v) {
+
+            Intent intent = new Intent(v.getContext(), ChatActivity.class);
+            startActivity(intent);
+        }
+    }
     private SensorEventListener lightSensorCode() {
         SensorEventListener sel = new SensorEventListener() {
             @Override
@@ -149,8 +162,6 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         };
         return sel;
     }
-
-
 
     private LocationRequest createLocationRequest() {
         LocationRequest locationRequestV = LocationRequest.create()
@@ -310,7 +321,6 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         // Start downloading json data from Google Directions API
         downloadTask.execute(url);
     }
-
 
     private String getDirectionsUrl(LatLng origin,LatLng dest){
 

@@ -37,7 +37,7 @@
                 android:layout_margin="20dp">
 
                 <TextView
-                    android:id="@+id/textView24"
+                    android:id="@+id/textMapaNombreMotel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Motel X"
@@ -75,25 +75,26 @@
                     map:layout_column="1"
                     map:layout_row="1" />
 
-                <Button
-                    android:id="@+id/btChat"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/moraitoMelo"
-                    android:text="Chat"
-                    map:cornerRadius="45dp"
-                    map:layout_column="1"
-                    map:layout_row="4" />
-
                 <TextView
-                    android:id="@+id/textView28"
+                    android:id="@+id/textoMapaDireccion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     map:layout_column="1"
                     map:layout_row="2" />
             </androidx.gridlayout.widget.GridLayout>
+
         </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/btChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:backgroundTint="@color/moraitoMelo"
+            android:text="Chat"
+            map:cornerRadius="45dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
