@@ -7,15 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
 public class LogIn extends AppCompatActivity {
 
     Button bLogin;
-    Button bReg;
-    Button bReg2;
+    Button bRegUsr;
+    Button bRegDue;
     TextInputEditText usuario, contraseña;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +23,13 @@ public class LogIn extends AppCompatActivity {
         getWindow().setStatusBarColor(getResources().getColor(R.color.moraitoMelo));
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         //inflate
-        bLogin = findViewById(R.id.botonLogin);
-        bReg = findViewById(R.id.botonRegister);
-        bReg2 = findViewById(R.id.botonRegister2);
-        usuario = findViewById(R.id.textoUsuario);
-        contraseña = findViewById(R.id.textoContasenna);
+        bRegUsr = findViewById(R.id.usarioRegist);
+        bRegDue = findViewById(R.id.dueñoRegist);
+        usuario = findViewById(R.id.correoLogin);
+        contraseña = findViewById(R.id.passwLogin);
         //llamado pantalla register
 
-        bReg.setOnClickListener(new View.OnClickListener() {
+        bRegUsr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Registro.class);
@@ -40,26 +38,11 @@ public class LogIn extends AppCompatActivity {
         });
 
         //llamado a el registro del duenio
-        bReg2.setOnClickListener(new View.OnClickListener() {
+        bRegDue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), Registro_duenio.class);
                 startActivity(intent);
-            }
-        });
-        //llamado pantalla login
-
-        bLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(usuario.getText().toString().equals("adm"))
-                {
-                    Intent intent = new Intent(v.getContext(), AdmLogActivity.class);
-                    startActivity(intent);
-                }else {
-                    Intent intent = new Intent(v.getContext(), ListaMoteles.class);
-                    startActivity(intent);
-                }
             }
         });
     }

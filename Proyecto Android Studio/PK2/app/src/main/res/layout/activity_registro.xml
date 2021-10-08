@@ -13,16 +13,53 @@
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/login" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/apellidoInputRegi"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/delineado_figura"
+        android:hint="Apellido"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="10dp"
+        android:text="Apellido"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/apellidoInputRegi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/botonRegistro"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/white"
+        android:onClick="regist"
         android:text="Registrarse"
         android:textAllCaps="false"
         android:textColor="#404040"
@@ -31,7 +68,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputConfirmacioncontrasennaRegistro2" />
+        app:layout_constraintTop_toBottomOf="@+id/cedulaInputRegi" />
 
     <TextView
         android:id="@+id/textView2"
@@ -59,7 +96,7 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/inputCorreoRegistro"
+        app:layout_constraintBottom_toTopOf="@+id/inputMailRegi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -70,11 +107,11 @@
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="10dp"
-        android:text="Confirmacion Contraseña"
+        android:text="Nombre"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/inputConfirmacioncontrasennaRegistro"
+        app:layout_constraintBottom_toTopOf="@+id/nombreInputRegi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -89,7 +126,7 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/inputConfirmacioncontrasennaRegistro2"
+        app:layout_constraintBottom_toTopOf="@+id/cedulaInputRegi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -104,12 +141,12 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/inputContrasenaRegistro"
+        app:layout_constraintBottom_toTopOf="@+id/inputPasswordRegi"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/inputCorreoRegistro"
+        android:id="@+id/inputMailRegi"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -118,6 +155,7 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/delineado_figura"
         android:hint="ejemplo@123.com"
+        android:inputType="textEmailAddress"
         android:textAlignment="textStart"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
@@ -126,7 +164,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/inputContrasenaRegistro"
+        android:id="@+id/inputPasswordRegi"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -135,7 +173,7 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/delineado_figura"
         android:hint="******"
-        android:password="true"
+        android:inputType="textPassword"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
@@ -144,7 +182,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/inputConfirmacioncontrasennaRegistro"
+        android:id="@+id/nombreInputRegi"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -152,17 +190,17 @@
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/delineado_figura"
-        android:hint="******"
-        android:password="true"
+        android:hint="Nombre"
+        android:inputType="textPersonName"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintBottom_toTopOf="@+id/textView23"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/inputConfirmacioncontrasennaRegistro2"
+        android:id="@+id/cedulaInputRegi"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -178,6 +216,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.586" />
+        app:layout_constraintVertical_bias="0.711" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
