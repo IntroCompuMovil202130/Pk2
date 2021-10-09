@@ -20,9 +20,6 @@
             android:name=".crear_habitacon"
             android:exported="true" />
         <activity
-            android:name=".editar_informacion_motel"
-            android:exported="true" />
-        <activity
             android:name=".crear_motel"
             android:exported="true" />
         <!--

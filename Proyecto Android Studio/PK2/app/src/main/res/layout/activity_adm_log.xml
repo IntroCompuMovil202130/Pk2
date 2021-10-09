@@ -73,20 +73,6 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/btnEditInf"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="0.2"
-            android:text="Editar información"
-            android:textColor="#FFFFFF"
-            android:textSize="10dp"
-            android:textStyle="bold"
-            app:backgroundTint="@color/moraitoMelo"
-            app:cornerRadius="40dp" />
-
-        <Button
             android:id="@+id/btnAgHab"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

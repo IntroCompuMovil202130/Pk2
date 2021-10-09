@@ -33,7 +33,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/perfilCorreo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -55,10 +55,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.145"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                app:layout_constraintTop_toBottomOf="@+id/perfilCorreo" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/perfilCelular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="123456"
@@ -69,7 +69,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
             <Button
-                android:id="@+id/botonLogin"
+                android:id="@+id/perfilExit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="48dp"
@@ -100,7 +100,7 @@
             android:background="@color/moraitoMelo">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/perfilImagen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -128,7 +128,7 @@
             android:background="@drawable/delineado_mororado">
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/perfilNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nombre Usuario"

@@ -69,9 +69,14 @@ public class Registro extends AppCompatActivity {
                     //valida que la autenticacion se guarde de forma correcta en la BD
                     if(task.isSuccessful())
                     {
-                        FirebaseUser user = mAuth.getCurrentUser();
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                         if(user != null) {
-
+                            UserProfileChangeRequest.Builder upcrb = new UserProfileChangeRequest.Builder();
+                            String rol = "0";
+                            upcrb.setDisplayName(rol);
+                            user.updateProfile(upcrb.build());
+                            guardarDatos(mail,pass,name,lastN,cc);
+                            actualizarPantalla(user);
                         }
                     }else
                     {
@@ -80,14 +85,17 @@ public class Registro extends AppCompatActivity {
                     }
                 }
             });
-            guardarDatos(mail,pass,name,lastN,cc);
-            Intent intent = new Intent(Registro.this,LogIn.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
         }else
         {
             //dialogo para error en la contraseña o correo
             Toast.makeText(Registro.this,"contraseña o correo erroneo", Toast.LENGTH_LONG).show();
+        }
+    }
+    private void actualizarPantalla(FirebaseUser user)
+    {
+        if(user != null)
+        {
+            startActivity(new Intent(Registro.this,LogIn.class));
         }
     }
     private void guardarDatos(String mail,String pass,String name,String lastN,String cc )
@@ -103,9 +111,6 @@ public class Registro extends AppCompatActivity {
             usuario.setCedula(cc);
             usuario.setCcontraseña(pass);
             usuario.setCorreo(mail);
-            //rol de usuarios es 0
-            usuario.setRol(0);
-            //escritura de los datos
             myRef = database.getReference(PATH_USERS);
             //asignacion de cc como key
             myRef = database.getReference(PATH_USERS + cc);

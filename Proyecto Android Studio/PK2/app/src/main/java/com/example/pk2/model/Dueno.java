@@ -1,37 +1,17 @@
 package com.example.pk2.model;
 
-public class Usuario {
+public class Dueno {
     String correo, ccontraseña,nombre,apellido,cedula;
-    double lat;
-    double lon;
 
-    public Usuario() {
-
-    }
-    public Usuario(String correo, String ccontraseña, String nombre, String apellido, String cedula,double lat,double lon) {
+    public Dueno(String correo, String ccontraseña, String nombre, String apellido, String cedula) {
         this.correo = correo;
         this.ccontraseña = ccontraseña;
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
-        this.lat = lat;
-        this.lon = lon;
     }
 
-    public double getLat() {
-        return lat;
-    }
-
-    public void setLat(double lat) {
-        this.lat = lat;
-    }
-
-    public double getLon() {
-        return lon;
-    }
-
-    public void setLon(double lon) {
-        this.lon = lon;
+    public Dueno() {
     }
 
     public String getCorreo() {

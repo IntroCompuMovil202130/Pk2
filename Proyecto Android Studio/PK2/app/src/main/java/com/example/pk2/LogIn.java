@@ -49,7 +49,7 @@ public class LogIn extends AppCompatActivity {
         //inflate autentificacion
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        //llamado pantalla register
+        //llamado pantalla registro usuario
         bRegUsr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +91,7 @@ public class LogIn extends AppCompatActivity {
             });
         }else {
             //el correo no es valido
+            Toast.makeText(LogIn.this,"No se encontro el usuario", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -103,45 +104,21 @@ public class LogIn extends AppCompatActivity {
             return false;
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //mantener la pantalla si ya hay un usuario logeado
-        FirebaseUser user = mAuth.getCurrentUser();
-        if(user != null) {
-
-            actualizarPantalla(user);
-        }
-    }
-
     private void actualizarPantalla(FirebaseUser user)
     {
         if(user != null)
         {
-            myRef = database.getReference(PATH_USERS);
-            myRef.orderByChild("correo").equalTo(usuario.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot child : snapshot.getChildren()) {
-                        Usuario usuario = child.getValue(Usuario.class);
-                        //actualizacion de pantalla segun el rol de cada usuario
-                        if (usuario.getRol() == 0) {
-                            Intent intent = new Intent(LogIn.this, ListaMoteles.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                        }else if(usuario.getRol() == 1) {
-                            Intent intent = new Intent(LogIn.this, AdmLogActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(LogIn.this,"No se encontro el usuario", Toast.LENGTH_LONG).show();
-                }
-            });
+            System.out.println("EL DATO ES:"+user.getDisplayName());
+            //actualizacion de pantalla segun el rol de cada usuario para el administrador es uno y para usuarios es 0
+            if(user.getDisplayName().equals("0")){
+                Intent intent = new Intent(LogIn.this, ListaMoteles.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }else if(user.getDisplayName().equals("1")){
+                Intent intent = new Intent(LogIn.this, AdmLogActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
         }
     }
 

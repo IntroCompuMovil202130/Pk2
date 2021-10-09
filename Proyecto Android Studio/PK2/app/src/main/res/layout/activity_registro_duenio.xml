@@ -29,7 +29,7 @@ tools:context=".Registro">
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintBottom_toTopOf="@+id/perfilCorreo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
@@ -56,7 +56,8 @@ tools:context=".Registro">
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/white"
-        android:text="Registrarse"
+        android:onClick="regist"
+        android:text="Siguiente"
         android:textAllCaps="false"
         android:textColor="#404040"
         android:textStyle="bold"
@@ -112,7 +113,7 @@ tools:context=".Registro">
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/perfilCorreo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -127,7 +128,7 @@ tools:context=".Registro">
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/perfilNombre"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -155,7 +156,7 @@ tools:context=".Registro">
         android:textAlignment="textStart"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintBottom_toTopOf="@+id/perfilNombre"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
