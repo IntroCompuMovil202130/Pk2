@@ -119,6 +119,7 @@
         android:layout_marginTop="12dp"
         android:backgroundTint="@color/moraitoMelo"
         android:text="Tomar Foto"
+        android:onClick="onClickPhotoManager"
         app:cornerRadius="45dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.817"
