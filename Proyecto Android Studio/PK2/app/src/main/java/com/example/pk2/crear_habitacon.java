@@ -26,7 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 //Para la creación de habitación.
 public class crear_habitacon extends AppCompatActivity {
-    private static final int RCODE_CAMERA = 1, RCODE_GALLERY = 2;
+    private static final int RCODE_CAMERA = 1, RCODE_GALLERY = 2, RCODE_WEXTERNAL = 3;
     Bitmap imageArray[];
     EditText etxt_NombreHabitacion, etext_Precio, etext_Descripcion;
     ImageButton img_1, img_2, img_3, img_4, img_5, img_6;
@@ -57,37 +57,95 @@ public class crear_habitacon extends AppCompatActivity {
         btn_gallery = findViewById(R.id.botonAbrirGaleria);
         btn_camara = findViewById(R.id.botonTomarFoto);
         btn_save = findViewById(R.id.botonRegistrarse);
+        imageArray = new Bitmap[6];
 
     }
     public void clickedOnImg1(View v)
     {
-        applySelectColor(imgIndexClicked, 0);
-        imgIndexClicked = 0;
+        if (imgIndexClicked == 0)
+        {
+            applySelectColor(imgIndexClicked, -1);
+            imgIndexClicked = -1;
+        }
+        else {
+            applySelectColor(imgIndexClicked, 0);
+            imgIndexClicked = 0;
+        }
     }
     public void clickedOnImg2(View v)
     {
-        applySelectColor(imgIndexClicked, 1);
-        imgIndexClicked = 1;
+        if (imgIndexClicked == 1)
+        {
+            applySelectColor(imgIndexClicked, -1);
+            imgIndexClicked = -1;
+        }
+        else {
+            applySelectColor(imgIndexClicked, 1);
+            imgIndexClicked = 1;
+        }
     }
     public void clickedOnImg3(View v)
     {
-        applySelectColor(imgIndexClicked, 2);
-        imgIndexClicked = 2;
+        if (imgIndexClicked == 2)
+        {
+            applySelectColor(imgIndexClicked, -1);
+            imgIndexClicked = -1;
+        }
+        else {
+            applySelectColor(imgIndexClicked, 2);
+            imgIndexClicked = 2;
+        }
     }
     public void clickedOnImg4(View v)
     {
-        applySelectColor(imgIndexClicked, 3);
-        imgIndexClicked = 3;
+        if (imgIndexClicked == 3)
+        {
+            applySelectColor(imgIndexClicked, -1);
+            imgIndexClicked = -1;
+        }
+        else {
+            applySelectColor(imgIndexClicked, 3);
+            imgIndexClicked = 3;
+        }
     }
     public void clickedOnImg5(View v)
     {
-        applySelectColor(imgIndexClicked, 4);
-        imgIndexClicked = 4;
+        if (imgIndexClicked == 4)
+        {
+            applySelectColor(imgIndexClicked, -1);
+            imgIndexClicked = -1;
+        }
+        else {
+            applySelectColor(imgIndexClicked, 4);
+            imgIndexClicked = 4;
+        }
     }
     public void clickedOnImg6(View v)
     {
-        applySelectColor(imgIndexClicked, 5);
-        imgIndexClicked = 5;
+        if (imgIndexClicked == 5)
+        {
+            applySelectColor(imgIndexClicked, -1);
+            imgIndexClicked = -1;
+        }
+        else {
+            applySelectColor(imgIndexClicked, 5);
+            imgIndexClicked = 5;
+        }
+    }
+    public void onClickPhotoManager(View v)
+    {
+        if (imgIndexClicked != -1)
+        {
+            //Write external storage
+            verificarPermiso(this, Manifest.permission.WRITE_EXTERNAL_STORAGE,"",
+                    RCODE_WEXTERNAL);
+        }
+        else
+        {
+            //TODO Dar instrucciones de seleccionar imagen
+        }
+
+
     }
 
 
@@ -103,6 +161,23 @@ public class crear_habitacon extends AppCompatActivity {
                 //TODO Mostrar justificacion
             }
             ActivityCompat.requestPermissions(context, new String[]{permisos}, id_Code);
+        }
+        else
+        {
+            itHasPermission(id_Code);
+        }
+
+    }
+    private void itHasPermission (int id_Code)
+    {
+        if (id_Code == RCODE_WEXTERNAL)
+        {
+            verificarPermiso(this, Manifest.permission.CAMERA,
+                    "",RCODE_CAMERA);
+        }
+        else if (id_Code == RCODE_CAMERA)
+        {
+            tomarFoto();
         }
     }
 
@@ -134,6 +209,19 @@ public class crear_habitacon extends AppCompatActivity {
                     //TODO - Deny Permission
                 }
                 break;
+            case RCODE_WEXTERNAL:
+                if (grantResults.length>0
+                        && grantResults[0]==PackageManager.PERMISSION_GRANTED)
+                {
+                    verificarPermiso(this, Manifest.permission.CAMERA,
+                            "",RCODE_CAMERA); //Permisos de camara...!
+                }
+                else
+                {
+                    //TODO - Deny Permission
+                }
+                break;
+
         }
 
     }
@@ -161,6 +249,8 @@ public class crear_habitacon extends AppCompatActivity {
                 {
                     Bundle extras = data.getExtras();
                     Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    imageArray[imgIndexClicked] = imageBitmap;
+                    changeImageOnScreen();
                     //TODO Save image in array and put it on screen.
                 }
                 break;
@@ -229,5 +319,29 @@ public class crear_habitacon extends AppCompatActivity {
                 break;
         }
 
+    }
+    private void changeImageOnScreen()
+    {
+        switch (imgIndexClicked)
+        {
+            case 0:
+                img_1.setImageBitmap(imageArray[imgIndexClicked]);
+                break;
+            case 1:
+                img_2.setImageBitmap(imageArray[imgIndexClicked]);
+                break;
+            case 2:
+                img_3.setImageBitmap(imageArray[imgIndexClicked]);
+                break;
+            case 3:
+                img_4.setImageBitmap(imageArray[imgIndexClicked]);
+                break;
+            case 4:
+                img_5.setImageBitmap(imageArray[imgIndexClicked]);
+                break;
+            case 5:
+                img_6.setImageBitmap(imageArray[imgIndexClicked]);
+                break;
+        }
     }
 }
