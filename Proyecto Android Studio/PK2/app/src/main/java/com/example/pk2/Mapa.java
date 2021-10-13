@@ -75,7 +75,7 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private ActivityMapaBinding binding;
 
-    private Marker posicionActual;
+    private Marker posicionActual, motelMarker;
     String permission = Manifest.permission.ACCESS_FINE_LOCATION;
     int permission_id = 2;
     LatLng actual ;
@@ -181,13 +181,20 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
                     if(posicionActual != null){
                         posicionActual.remove();
                     }
+                    if(motelMarker != null)
+                    {
+                        motelMarker.remove();
+                    }
                     Log.i("tag", "location: " + location.toString());
                     actual = new LatLng(location.getLatitude(), location.getLongitude());
-                    posicionActual = mMap.addMarker(new MarkerOptions().position(actual).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                    posicionActual = mMap.addMarker(new MarkerOptions().position(actual).title("").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
 
-                    mDestination = searchByName(nombreDirMoterl);
-                    mMap.addMarker(new MarkerOptions().position(mDestination).title(nombreDirMoterl).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                    if (mDestination == null){
+                        mDestination = searchByName(nombreDirMoterl);
+                    }
+                    motelMarker = mMap.addMarker(new MarkerOptions().position(mDestination).title(nombreDirMoterl).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+
                     drawRoute();
                 }
             }

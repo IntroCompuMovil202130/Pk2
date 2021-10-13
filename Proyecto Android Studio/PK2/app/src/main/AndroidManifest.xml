@@ -23,6 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PK2">
         <activity
+            android:name=".Temperatura"
+            android:exported="true" />
+        <activity
             android:name=".crear_habitacon"
             android:exported="true" />
         <activity

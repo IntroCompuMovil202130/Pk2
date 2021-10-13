@@ -21,7 +21,7 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="4"
             tools:context=".Mapa" />
 
         <androidx.cardview.widget.CardView
@@ -47,17 +47,6 @@
                     map:layout_row="0" />
 
                 <TextView
-                    android:id="@+id/textView26"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Calificacion"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    map:layout_column="0"
-                    map:layout_gravity="center_vertical"
-                    map:layout_row="1" />
-
-                <TextView
                     android:id="@+id/textView27"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,14 +54,6 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     map:layout_column="0"
-                    map:layout_row="2" />
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="85dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/calificacion3"
-                    map:layout_column="1"
                     map:layout_row="1" />
 
                 <TextView
@@ -81,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     map:layout_column="1"
-                    map:layout_row="2" />
+                    map:layout_row="1" />
             </androidx.gridlayout.widget.GridLayout>
 
         </androidx.cardview.widget.CardView>

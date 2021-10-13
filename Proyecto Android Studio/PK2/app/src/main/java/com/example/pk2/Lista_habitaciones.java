@@ -28,8 +28,8 @@ public class Lista_habitaciones extends AppCompatActivity {
         txNombreMotel = findViewById(R.id.textoHabitacionesNombreMotel);
 
         // asingancion de valores
-        txDireccion.setText("Cl. 102 # 68d-17");
-        txNombreMotel.setText("Motel Sara");
+        txDireccion.setText("Cl. 62 #14 - 31");
+        txNombreMotel.setText("Motel Las Palmas");
 
         Bvamos.setOnClickListener(new View.OnClickListener() {
             @Override

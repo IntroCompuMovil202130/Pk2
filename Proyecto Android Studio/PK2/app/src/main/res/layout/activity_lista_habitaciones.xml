@@ -44,23 +44,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textoHabitacionesNombreMotel">
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:text="Calificacion General"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="20dp"
-            android:layout_gravity="left"
-            app:srcCompat="@drawable/calificacion5" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/textoHabitacionesNombreMotel"/>
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -71,7 +55,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9">
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,6 +70,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/delineado_mororado"
                 android:clickable="false"
                 app:cardCornerRadius="10dp"
@@ -127,105 +113,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/delineado_mororado"
-                android:clickable="false"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp">
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="193dp"
-                        android:layout_height="139dp"
-                        android:padding="10dp"
-                        android:scaleType="fitXY"
-                        app:shapeAppearanceOverlay="@style/RoundSquare"
-                        app:srcCompat="@drawable/habitacion1" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="5dp"
-                            android:text="Royal"
-                            android:textColor="@color/moraitoMelo"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="5dp"
-                            android:text="Habitacion con las mejores comodidades para que pases un maravilloso momento en pareja" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="30dp"
-                android:background="@drawable/delineado_mororado"
-                android:clickable="false"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp">
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="193dp"
-                        android:layout_height="139dp"
-                        android:padding="10dp"
-                        android:scaleType="fitXY"
-                        app:shapeAppearanceOverlay="@style/RoundSquare"
-                        app:srcCompat="@drawable/habitacion3" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="5dp"
-                            android:text="Party"
-                            android:textColor="@color/moraitoMelo"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="5dp"
-                            android:text="Equipada con variedad de actividades para que dejen volar su imaginacion" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
         </LinearLayout>
     </ScrollView>
 
@@ -233,13 +120,13 @@
         android:id="@+id/textoHabitacionesNombreMotel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:text="Motel Sara"
+        android:layout_marginTop="88dp"
+        android:text="Motel Las Palmas"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/portada" />
 
@@ -253,18 +140,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+        app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
 
     <Button
         android:id="@+id/btnEditInf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="¡Vamos!"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:backgroundTint="@color/moraitoMelo"
         app:cornerRadius="45dp"
-        app:layout_constraintBottom_toBottomOf="@+id/portada"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textoDireccion" />

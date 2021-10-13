@@ -314,7 +314,7 @@ public class crear_habitacon extends AppCompatActivity {
         switch (currIMG)
         {
             case 0:
-                img_1.getBackground().setColorFilter(Color.parseColor("#FFFFEB3B"),
+                img_1.getBackground().setColorFilter(Color.parseColor("#FFFFFFFF"),
                         PorterDuff.Mode.SRC_ATOP);
                 break;
             case 1:

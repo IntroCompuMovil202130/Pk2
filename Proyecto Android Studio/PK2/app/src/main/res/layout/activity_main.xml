@@ -117,7 +117,7 @@
         app:layout_constraintTop_toBottomOf="@+id/contrasenna" />
 
     <Button
-        android:id="@+id/perfilExit"
+        android:id="@+id/botonTemperatura"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
@@ -184,6 +184,6 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perfilExit" />
+        app:layout_constraintTop_toBottomOf="@+id/botonTemperatura" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

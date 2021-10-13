@@ -64,6 +64,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/delineado_mororado"
                 android:clickable="false"
                 app:cardCornerRadius="10dp"
@@ -76,55 +77,10 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        app:shapeAppearanceOverlay="@style/RoundSquare"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:scaleType="fitXY"
-                        app:srcCompat="@drawable/motel4" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Motel Sara"
-                        android:textColor="#616161"
-                        android:textSize="30sp" />
-
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="left"
-                        app:srcCompat="@drawable/calificacion5" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="4 Km" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/delineado_mororado"
-                android:clickable="false"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:orientation="vertical">
-
-                    <com.google.android.material.imageview.ShapeableImageView
                         app:shapeAppearanceOverlay="@style/RoundSquare"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:scaleType="fitXY"
                         app:srcCompat="@drawable/motel2" />
 
                     <TextView
@@ -134,66 +90,11 @@
                         android:textColor="#616161"
                         android:textSize="30sp" />
 
-                    <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="left"
-                        app:srcCompat="@drawable/calificacion4" />
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="4 Km" />
+                        android:text="Cl. 62 #14 - 31" />
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="30dp"
-                android:background="@drawable/delineado_mororado"
-                android:clickable="false"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:orientation="vertical">
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:scaleType="fitXY"
-                        app:shapeAppearanceOverlay="@style/RoundSquare"
-                        app:srcCompat="@drawable/motel1" />
-
-                    <TextView
-                        android:id="@+id/textView14"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Motel Amarte"
-                        android:textColor="#616161"
-                        android:textSize="30sp" />
-
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="80dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="left"
-                        app:srcCompat="@drawable/calificacion3" />
-
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="3 Km" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

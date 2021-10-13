@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Perfil extends AppCompatActivity {
 
     //variables
-    Button salir;
+    Button salir, temperatura;
     //autenticacion firebase
     FirebaseAuth mAuth;
     @Override
@@ -21,7 +21,8 @@ public class Perfil extends AppCompatActivity {
         setContentView(R.layout.activity_perfil);
         getWindow().setStatusBarColor(getResources().getColor(R.color.moraitoMelo));
         //inflates
-        salir = findViewById(R.id.perfilExit);
+        salir = findViewById(R.id.botonLogOut);
+        temperatura = findViewById(R.id.botonTemperatura);
         mAuth = FirebaseAuth.getInstance();
         salir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,6 +30,14 @@ public class Perfil extends AppCompatActivity {
                 mAuth.signOut();
                 Intent intent = new Intent(Perfil.this,LogIn.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                Perfil.this.finish();
+            }
+        });
+        temperatura.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Perfil.this,Temperatura.class);
                 startActivity(intent);
             }
         });
