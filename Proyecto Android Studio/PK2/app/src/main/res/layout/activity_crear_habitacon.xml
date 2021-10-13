@@ -106,6 +106,7 @@
         android:layout_marginTop="12dp"
         android:backgroundTint="@color/moraitoMelo"
         android:text="Abrir Galeria"
+        android:onClick="onClickGalleryManager"
         app:cornerRadius="45dp"
         app:layout_constraintEnd_toStartOf="@+id/botonTomarFoto"
         app:layout_constraintHorizontal_bias="0.623"
@@ -141,7 +142,7 @@
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="30dp"
@@ -154,24 +155,24 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="clickedOnImg1"
             android:backgroundTint="#DDDDDD"
+            android:onClick="clickedOnImg1"
             app:srcCompat="@android:drawable/ic_menu_gallery" />
 
         <ImageButton
             android:id="@+id/img_2"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:onClick="clickedOnImg2"
             android:layout_weight="1"
+            android:onClick="clickedOnImg2"
             app:srcCompat="@android:drawable/ic_menu_gallery" />
 
         <ImageButton
             android:id="@+id/img_3"
             android:layout_width="100dp"
-            android:onClick="clickedOnImg3"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="clickedOnImg3"
             app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     </LinearLayout>
@@ -180,7 +181,7 @@
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
@@ -193,24 +194,24 @@
             android:id="@+id/img_4"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:onClick="clickedOnImg4"
             android:layout_weight="1"
+            android:onClick="clickedOnImg4"
             app:srcCompat="@android:drawable/ic_menu_gallery" />
 
         <ImageButton
             android:id="@+id/img_5"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:onClick="clickedOnImg5"
             android:layout_weight="1"
+            android:onClick="clickedOnImg5"
             app:srcCompat="@android:drawable/ic_menu_gallery" />
 
         <ImageButton
             android:id="@+id/img_6"
             android:layout_width="100dp"
-            android:onClick="clickedOnImg6"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="clickedOnImg6"
             app:srcCompat="@android:drawable/ic_menu_gallery" />
     </LinearLayout>
 
