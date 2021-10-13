@@ -11,8 +11,10 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -20,13 +22,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 //Para la creación de habitación.
 public class crear_habitacon extends AppCompatActivity {
-    private static final int RCODE_CAMERA = 1, RCODE_GALLERY = 2, RCODE_WEXTERNAL = 3;
+    private static final int RCODE_CAMERA = 1, RCODE_REXTERNAL = 2, RCODE_WEXTERNAL = 3;
     Bitmap imageArray[];
     EditText etxt_NombreHabitacion, etext_Precio, etext_Descripcion;
     ImageButton img_1, img_2, img_3, img_4, img_5, img_6;
@@ -137,15 +143,29 @@ public class crear_habitacon extends AppCompatActivity {
         if (imgIndexClicked != -1)
         {
             //Write external storage
-            verificarPermiso(this, Manifest.permission.WRITE_EXTERNAL_STORAGE,"",
+            verificarPermiso(this, Manifest.permission.WRITE_EXTERNAL_STORAGE,"Para usar la camara, es necesario este permiso!",
                     RCODE_WEXTERNAL);
         }
         else
         {
-            //TODO Dar instrucciones de seleccionar imagen
+            Toast.makeText(crear_habitacon.this, "Por favor seleccionar una imagen...!",Toast.LENGTH_LONG).show();
         }
 
 
+    }
+
+    public void onClickGalleryManager(View v)
+    {
+        if (imgIndexClicked != -1)
+        {
+            //Write external storage
+            verificarPermiso(this, Manifest.permission.READ_EXTERNAL_STORAGE,"Para usar la galería, es necesario aceptar el permiso!",
+                    RCODE_REXTERNAL);
+        }
+        else
+        {
+            Toast.makeText(crear_habitacon.this, "Por favor seleccionar una imagen...!",Toast.LENGTH_LONG).show();
+        }
     }
 
 
@@ -158,7 +178,7 @@ public class crear_habitacon extends AppCompatActivity {
             //En caso que no se haya aceptado el permiso
             if (ActivityCompat.shouldShowRequestPermissionRationale(context, permisos))
             {
-                //TODO Mostrar justificacion
+                Toast.makeText(crear_habitacon.this, justificacion,Toast.LENGTH_LONG).show();
             }
             ActivityCompat.requestPermissions(context, new String[]{permisos}, id_Code);
         }
@@ -173,13 +193,18 @@ public class crear_habitacon extends AppCompatActivity {
         if (id_Code == RCODE_WEXTERNAL)
         {
             verificarPermiso(this, Manifest.permission.CAMERA,
-                    "",RCODE_CAMERA);
+                    "\"Para usar la camara, es necesario este permiso!\"",RCODE_CAMERA);
         }
         else if (id_Code == RCODE_CAMERA)
         {
             tomarFoto();
         }
+        else if (id_Code == RCODE_REXTERNAL)
+        {
+            abrirGaleria();
+        }
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[],int[]grantResults)
@@ -198,11 +223,11 @@ public class crear_habitacon extends AppCompatActivity {
                     //TODO - Deny Permission
                 }
                 break;
-            case RCODE_GALLERY:
+            case RCODE_REXTERNAL:
                 if (grantResults.length>0
                         && grantResults[0]==PackageManager.PERMISSION_GRANTED)
                 {
-                    //TODO - Execute Gallery Functionality
+                    abrirGaleria();
                 }
                 else
                 {
@@ -214,7 +239,7 @@ public class crear_habitacon extends AppCompatActivity {
                         && grantResults[0]==PackageManager.PERMISSION_GRANTED)
                 {
                     verificarPermiso(this, Manifest.permission.CAMERA,
-                            "",RCODE_CAMERA); //Permisos de camara...!
+                            "\"Para usar la camara, es necesario este permiso!\"",RCODE_CAMERA); //Permisos de camara...!
                 }
                 else
                 {
@@ -238,6 +263,19 @@ public class crear_habitacon extends AppCompatActivity {
             Log.e("PERMISSION_APP", e.getMessage());
         }
     }
+    private void abrirGaleria()
+    {
+        Intent i_galeria = new Intent(Intent.ACTION_PICK);
+
+        i_galeria.setType("image/*");
+        try {
+            startActivityForResult(i_galeria, RCODE_REXTERNAL);
+        }
+        catch (ActivityNotFoundException e)
+        {
+            Log.e("PERMISSION_APP", e.getMessage());
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode,int resultCode,Intent data)
     {
@@ -251,9 +289,23 @@ public class crear_habitacon extends AppCompatActivity {
                     Bitmap imageBitmap = (Bitmap) extras.get("data");
                     imageArray[imgIndexClicked] = imageBitmap;
                     changeImageOnScreen();
-                    //TODO Save image in array and put it on screen.
                 }
                 break;
+            case RCODE_REXTERNAL:
+                if (resultCode == RESULT_OK)
+                {
+                    try {
+                        final Uri imageUri = data.getData();
+                        final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                        final Bitmap myImage = BitmapFactory.decodeStream(imageStream);
+                        imageArray[imgIndexClicked] = myImage;
+                        changeImageOnScreen();
+                    }
+                    catch (FileNotFoundException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
         }
     }
 
