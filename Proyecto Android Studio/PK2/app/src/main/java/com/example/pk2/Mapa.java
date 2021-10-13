@@ -317,7 +317,7 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         return position;
     }
 
-    // implementacion de las rutas basados en el codigo enontrado en el siguiente link:
+    // implementacion de las rutas basados en el codigo enontrado en el siguiente link: https://www.wingsquare.com/blog/drawing-driving-route-directions-between-two-locations-using-google-directions-in-google-map-android/
     private void drawRoute(){
 
         // Getting URL to the Google Directions API

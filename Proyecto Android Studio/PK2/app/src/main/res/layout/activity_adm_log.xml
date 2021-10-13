@@ -36,6 +36,22 @@
             app:layout_constraintTop_toBottomOf="@+id/portada" />
 
     <Button
+        android:id="@+id/logOutDuenio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:layout_weight="0.2"
+        android:text="Cerrar Sesion"
+        android:textColor="#FFFFFF"
+        android:textSize="10dp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/moraitoMelo"
+        app:cornerRadius="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoDireccion" />
+
+    <Button
         android:id="@+id/btnAgHab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -138,13 +154,14 @@
         android:id="@+id/textoDireccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Direccion: Calle 63 # 13-40"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="118dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textoHabitacionesNombreMotel" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
