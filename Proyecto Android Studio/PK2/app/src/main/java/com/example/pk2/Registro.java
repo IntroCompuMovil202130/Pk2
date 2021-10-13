@@ -71,10 +71,10 @@ public class Registro extends AppCompatActivity {
                     {
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                         if(user != null) {
-                            UserProfileChangeRequest.Builder upcrb = new UserProfileChangeRequest.Builder();
+                            /*UserProfileChangeRequest.Builder upcrb = new UserProfileChangeRequest.Builder();
                             String rol = "0";
                             upcrb.setDisplayName(rol);
-                            user.updateProfile(upcrb.build());
+                            user.updateProfile(upcrb.build());*/
                             guardarDatos(mail,pass,name,lastN,cc);
                             actualizarPantalla(user);
                         }
@@ -95,7 +95,9 @@ public class Registro extends AppCompatActivity {
     {
         if(user != null)
         {
-            startActivity(new Intent(Registro.this,LogIn.class));
+            Intent intent = new Intent(Registro.this,LogIn.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
     }
     private void guardarDatos(String mail,String pass,String name,String lastN,String cc )
@@ -111,6 +113,7 @@ public class Registro extends AppCompatActivity {
             usuario.setCedula(cc);
             usuario.setCcontraseña(pass);
             usuario.setCorreo(mail);
+            usuario.setRol(0);
             myRef = database.getReference(PATH_USERS);
             //asignacion de cc como key
             myRef = database.getReference(PATH_USERS + cc);

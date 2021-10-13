@@ -35,6 +35,7 @@ public class LogIn extends AppCompatActivity {
     DatabaseReference myRef;
     //ruta en la base
     static final String PATH_USERS = "users/";
+    static final String PATH_DUENO = "dueno/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +69,19 @@ public class LogIn extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseUser user = mAuth.getCurrentUser();
+        actualizarPantalla(user,contraseña.getText().toString());
+    }
+
+/*    @Override
+    protected void onStart() {
+        super.onStart();
+        /*FirebaseUser user = mAuth.getCurrentUser();
+        actualizarPantallaStart(user,contraseña.getText().toString());
+    }*/
     //llamado funcion para ingresar
     public void login(View v)
     {
@@ -80,7 +94,7 @@ public class LogIn extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful())
                     {
-                        actualizarPantalla(mAuth.getCurrentUser());
+                        actualizarPantalla(mAuth.getCurrentUser(),correo);
                     }else {
                         //impresion de error y limpieza del formulario
                         usuario.setText(" ");
@@ -104,12 +118,25 @@ public class LogIn extends AppCompatActivity {
             return false;
     }
 
-    private void actualizarPantalla(FirebaseUser user)
+    private void actualizarPantalla(FirebaseUser user, String correo)
     {
         if(user != null)
         {
-            System.out.println("EL DATO ES:"+user.getDisplayName());
-            //actualizacion de pantalla segun el rol de cada usuario para el administrador es uno y para usuarios es 0
+            myRef = database.getReference(PATH_USERS);
+            myRef.orderByChild("correo").equalTo(correo).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Intent intent = new Intent(LogIn.this, ListaMoteles.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            /*//actualizacion de pantalla segun el rol de cada usuario para el administrador es uno y para usuarios es 0
             if(user.getDisplayName().equals("0")){
                 Intent intent = new Intent(LogIn.this, ListaMoteles.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -118,7 +145,7 @@ public class LogIn extends AppCompatActivity {
                 Intent intent = new Intent(LogIn.this, AdmLogActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-            }
+            }*/
         }
     }
 
