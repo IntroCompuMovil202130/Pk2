@@ -108,11 +108,6 @@ public class Registro_duenio extends AppCompatActivity {
                     if(task.isSuccessful()) {
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                         if (user != null) {
-                            //asignacion del rol de dueño
-                            UserProfileChangeRequest.Builder upcrb = new UserProfileChangeRequest.Builder();
-                            String rol = "1";
-                            upcrb.setDisplayName(rol);
-                            user.updateProfile(upcrb.build());
                             guardarDatos(mail,pass,name,lastN,cc);
                             actualizarPantalla(user,cc);
                         }

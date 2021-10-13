@@ -113,7 +113,6 @@ public class Registro extends AppCompatActivity {
             usuario.setCedula(cc);
             usuario.setCcontraseña(pass);
             usuario.setCorreo(mail);
-            usuario.setRol(0);
             myRef = database.getReference(PATH_USERS);
             //asignacion de cc como key
             myRef = database.getReference(PATH_USERS + cc);

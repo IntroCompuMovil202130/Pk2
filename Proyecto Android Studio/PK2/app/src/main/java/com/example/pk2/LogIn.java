@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.pk2.model.Dueno;
 import com.example.pk2.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LogIn extends AppCompatActivity {
 
+    private boolean flag;
     Button bRegUsr;
     Button bRegDue;
     TextInputEditText usuario, contraseña;
@@ -73,7 +75,7 @@ public class LogIn extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         FirebaseUser user = mAuth.getCurrentUser();
-        actualizarPantalla(user,contraseña.getText().toString());
+        actualizarPantalla(user);
     }
 
 /*    @Override
@@ -94,7 +96,7 @@ public class LogIn extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful())
                     {
-                        actualizarPantalla(mAuth.getCurrentUser(),correo);
+                        actualizarPantalla(mAuth.getCurrentUser());
                     }else {
                         //impresion de error y limpieza del formulario
                         usuario.setText(" ");
@@ -118,24 +120,53 @@ public class LogIn extends AppCompatActivity {
             return false;
     }
 
-    private void actualizarPantalla(FirebaseUser user, String correo)
+    private void actualizarPantalla(FirebaseUser user)
     {
+        flag = true;
         if(user != null)
         {
             myRef = database.getReference(PATH_USERS);
-            myRef.orderByChild("correo").equalTo(correo).addListenerForSingleValueEvent(new ValueEventListener() {
+            myRef.orderByChild("correo").equalTo(user.getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Intent intent = new Intent(LogIn.this, ListaMoteles.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                    for(DataSnapshot child : snapshot.getChildren()) {
+                        Usuario usuario = child.getValue(Usuario.class);
+                        if(usuario.getCorreo().equals(user.getEmail())) {
+                            startActivity(intent);
+                            flag = false;
+                        }
+                    }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
+                    Toast.makeText(LogIn.this,"ERROR:",Toast.LENGTH_LONG).show();
                 }
             });
+            if(flag)
+            {
+                myRef = database.getReference(PATH_DUENO);
+                myRef.orderByChild("correo").equalTo(user.getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot child : snapshot.getChildren()) {
+                            Dueno dueno = child.getValue(Dueno.class);
+                            if(dueno.getCorreo().equals(user.getEmail())) {
+                                Intent intent = new Intent(LogIn.this, AdmLogActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(LogIn.this,"ERROR:",Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
             /*//actualizacion de pantalla segun el rol de cada usuario para el administrador es uno y para usuarios es 0
             if(user.getDisplayName().equals("0")){
                 Intent intent = new Intent(LogIn.this, ListaMoteles.class);
