@@ -193,9 +193,11 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
                     if (mDestination == null){
                         mDestination = searchByName(nombreDirMoterl);
                     }
-                    motelMarker = mMap.addMarker(new MarkerOptions().position(mDestination).title(nombreDirMoterl).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                    else {
+                        motelMarker = mMap.addMarker(new MarkerOptions().position(mDestination).title(nombreDirMoterl).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                        drawRoute();
+                    }
 
-                    drawRoute();
                 }
             }
         };

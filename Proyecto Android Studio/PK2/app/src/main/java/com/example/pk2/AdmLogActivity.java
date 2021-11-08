@@ -17,7 +17,7 @@ public class AdmLogActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adm_log);
-        btnAgHab = findViewById(R.id.logOutDuenio);
+        btnAgHab = findViewById(R.id.btnAgHab);
         botonCerrarSesion = findViewById(R.id.logOutDuenio);
         mAuth = FirebaseAuth.getInstance();
         btnAgHab.setOnClickListener(new View.OnClickListener() {
