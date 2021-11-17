@@ -22,18 +22,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9869d57d-aad9-4935-a3e8-61c7734b5235" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/PK2/app/src/main/res/font/roboto_bold.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PK2/app/src/main/res/font/roboto_thin.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PK2/app/src/main/res/values/font_certs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PK2/app/src/main/res/values/preloaded_fonts.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PK2/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PK2/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PK2/app/src/main/res/drawable/forma_input.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PK2/app/src/main/res/drawable/delineado_figura.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_chat.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_chat.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_perfil.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_perfil.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_registro.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PK2/app/src/main/res/layout/activity_registro.xml" afterDir="false" />
-    </list>
+    <list default="true" id="9869d57d-aad9-4935-a3e8-61c7734b5235" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,6 +39,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/PK2" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
@@ -76,11 +66,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="740" y="271" key="FileChooserDialogImpl" timestamp="1628984026519">
-      <screen x="0" y="0" width="1920" height="1032" />
-    </state>
-    <state x="740" y="271" key="FileChooserDialogImpl/0.0.1920.1032@0.0.1920.1032" timestamp="1628984026519" />
   </component>
 </project>

@@ -5,15 +5,25 @@ public class Motel {
     String id;
     String direccion;
     String imagen;
+    String dirImagen;
 
-    public Motel(String nombre, String id, String direccion, String imagen) {
+    public Motel(String nombre, String id, String direccion, String imagen, String dirImagen) {
         this.nombre = nombre;
         this.id = id;
         this.direccion = direccion;
         this.imagen = imagen;
+        this.dirImagen = dirImagen;
     }
 
     public Motel() {
+    }
+
+    public String getDirImagen() {
+        return dirImagen;
+    }
+
+    public void setDirImagen(String dirImagen) {
+        this.dirImagen = dirImagen;
     }
 
     public String getNombre() {

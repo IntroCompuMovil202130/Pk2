@@ -24,6 +24,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.pk2.model.Habitacion;
+import com.example.pk2.model.Motel;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -41,7 +44,8 @@ public class crear_habitacon extends AppCompatActivity {
     //Base de datos
     FirebaseDatabase database;
     DatabaseReference myRef;
-    static final String PATH_HABITACION = "habitacion/";
+    FirebaseAuth mAuth;
+    static final String PATH_HABITACION = "motel/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -52,6 +56,8 @@ public class crear_habitacon extends AppCompatActivity {
         etext_Descripcion = findViewById(R.id.DescripcionHabitacion);
         etext_Precio = findViewById(R.id.inputMotelAdd);
         etxt_NombreHabitacion = findViewById(R.id.inputMotelNom);
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         //Inflación de los Botones de Imagen:
         img_1 = findViewById(R.id.img_1);
         img_2 = findViewById(R.id.img_2);
@@ -63,7 +69,23 @@ public class crear_habitacon extends AppCompatActivity {
         btn_gallery = findViewById(R.id.botonAbrirGaleria);
         btn_camara = findViewById(R.id.botonTomarFoto);
         btn_save = findViewById(R.id.botonRegistrarse);
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                regist(v);
+            }
+        });
         imageArray = new Bitmap[6];
+
+    }
+    public void regist(View v)
+    {
+        String nom = "habitacion del placer";
+        if(!nom.isEmpty()) {
+            Habitacion habitacion = new Habitacion(nom);
+            myRef = database.getReference(  PATH_HABITACION + mAuth.getCurrentUser().getUid()  + "/habitacion/" + "1");
+            myRef.setValue(habitacion);
+        }
 
     }
     public void clickedOnImg1(View v)
