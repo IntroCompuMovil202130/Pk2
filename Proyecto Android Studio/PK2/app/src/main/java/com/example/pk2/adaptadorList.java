@@ -11,23 +11,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.pk2.model.Motel;
+import com.example.pk2.model.MotelElementoList;
 
 import java.util.List;
 
 public class adaptadorList extends RecyclerView.Adapter<adaptadorList.ViewHolder>{
-    private List<Motel> datos;
+    private List<MotelElementoList> datos;
     private LayoutInflater inflater;
     private Context context;
     final adaptadorList.OnItemClickListener listener;
 
     public  interface  OnItemClickListener{
-        void onItemClick(Motel elementos);
+        void onItemClick(MotelElementoList elementos);
     }
 
 
 
-    public adaptadorList(List<Motel> lista, Context context, adaptadorList.OnItemClickListener listener ){
+    public adaptadorList(List<MotelElementoList> lista, Context context, adaptadorList.OnItemClickListener listener ){
         this.inflater = LayoutInflater.from(context);
         this.context = context;
         this.datos = lista;
@@ -52,7 +52,7 @@ public class adaptadorList extends RecyclerView.Adapter<adaptadorList.ViewHolder
         holder.bindData(datos.get(position));
     }
 
-    public void setItems(List<Motel> items)
+    public void setItems(List<MotelElementoList> items)
     {
         datos = items;
     }
@@ -69,7 +69,7 @@ public class adaptadorList extends RecyclerView.Adapter<adaptadorList.ViewHolder
             direccion = itemView.findViewById(R.id.direccionMotelCard);
         }
 
-        void bindData(final Motel lista){
+        void bindData(final MotelElementoList lista){
             String urlImage = lista.getImagen();
             Glide.with(context)
                     .load(urlImage)
