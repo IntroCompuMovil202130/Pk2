@@ -74,6 +74,7 @@ public class crear_motel extends AppCompatActivity {
             motel.setDireccion(add);
             motel.setId(id);
             motel.setDirImagen(dirImagen);
+            motel.setNumHab(0);
             //asignacion de cc como key
             myRef = database.getReference(PATH_MOTEL + id);
             //escritura

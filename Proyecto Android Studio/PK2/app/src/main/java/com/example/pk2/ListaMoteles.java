@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.example.pk2.model.HabitacionElementoList;
 import com.example.pk2.model.Motel;
 import com.example.pk2.model.MotelElementoList;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +35,7 @@ public class ListaMoteles extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference myRef;
     FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,13 +71,16 @@ public class ListaMoteles extends AppCompatActivity {
                     list.setNombre(motel.getNombre());
                     list.setDireccion(motel.getDireccion());
                     list.setImagen(motel.getDirImagen());
+                    list.setId(motel.getId());
                     elementos.add(list);
                 }
 
                 adaptadorList listaAdaptador = new adaptadorList(elementos, ListaMoteles.this, new adaptadorList.OnItemClickListener() {
                     @Override
                     public void onItemClick(MotelElementoList elementos) {
-
+                        Intent intent = new Intent(getApplicationContext(),Lista_habitaciones.class);
+                        intent.putExtra("idMotel",elementos.getId());
+                        startActivity(intent);
                     }
                 });
                 RecyclerView recyclerView = findViewById(R.id.recicler);
@@ -89,4 +95,5 @@ public class ListaMoteles extends AppCompatActivity {
             }
         });
     }
+
 }

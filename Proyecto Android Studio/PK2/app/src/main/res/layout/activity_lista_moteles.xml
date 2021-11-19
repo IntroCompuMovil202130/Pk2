@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:layout_marginTop="1dp"
         android:background="@drawable/delineado_mororado"
         android:backgroundTint="@color/moraitoMelo"
@@ -20,21 +20,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <SearchView
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
-            android:layout_weight="2"
-            android:background="@drawable/delineado_figura"
-            android:backgroundTint="#FFFFFF">
-
-        </SearchView>
+            android:layout_weight="3"
+            android:fontFamily="@font/ss"
+            android:gravity="center_vertical"
+            android:shadowColor="#FFFFFF"
+            android:text="PK2 - Moteles a un click!"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp" />
 
         <ImageButton
             android:id="@+id/botonPerifl"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="7dp"
             android:layout_weight="10"
             android:background="#00FFFFFF"
             android:scaleType="fitXY"
