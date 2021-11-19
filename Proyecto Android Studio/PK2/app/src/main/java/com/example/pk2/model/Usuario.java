@@ -1,14 +1,14 @@
 package com.example.pk2.model;
 
 public class Usuario {
-    String correo, ccontraseña,nombre,apellido,cedula;
+    String correo, ccontraseña,nombre,apellido,cedula, id;
     double lat;
     double lon;
 
     public Usuario() {
 
     }
-    public Usuario(String correo, String ccontraseña, String nombre, String apellido, String cedula,double lat,double lon) {
+    public Usuario(String correo, String ccontraseña, String nombre, String apellido, String cedula,double lat,double lon, String id) {
         this.correo = correo;
         this.ccontraseña = ccontraseña;
         this.nombre = nombre;
@@ -16,6 +16,15 @@ public class Usuario {
         this.cedula = cedula;
         this.lat = lat;
         this.lon = lon;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public double getLat() {

@@ -1,6 +1,6 @@
 package com.example.pk2;
 
-import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -8,12 +8,17 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,48 +27,191 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.pk2.model.HabitacionElementoList;
+import com.example.pk2.model.Motel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 //Para la creación de habitación.
-public class crear_habitacon extends AppCompatActivity {
+public class crear_habitacon extends AppCompatActivity implements SensorEventListener {
     private static final int RCODE_CAMERA = 1, RCODE_REXTERNAL = 2, RCODE_WEXTERNAL = 3;
     Bitmap imageArray[];
-    EditText etxt_NombreHabitacion, etext_Precio, etext_Descripcion;
+    EditText etxt_NombreHabitacion, etext_Precio, etext_Descripcion, horasI;
+    TextView temp;
+    String temperaturaGobal, dirImg1, dirImg2, dirImg3, idGobal;
     ImageButton img_1, img_2, img_3, img_4, img_5, img_6;
     Button btn_gallery, btn_camara, btn_save;
     int imgIndexClicked = -1;
     //Base de datos
     FirebaseDatabase database;
     DatabaseReference myRef;
-    static final String PATH_HABITACION = "habitacion/";
+    FirebaseAuth mAuth;
+    static final String PATH_HABITACION = "motel/";
+    static final String PATH_MOTEL = "motel/";
+    Uri imagenUriFinal;
+    FirebaseStorage storage;
+    StorageReference storageReference;
+    private SensorManager sensorManager;
+    private Sensor sensor;
+    private boolean estaDisponible;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        dirImg1 = "https://firebasestorage.googleapis.com/v0/b/pk2-machete.appspot.com/o/motel%2F273694-top-white-wallpaper-2560x1440.jpg?alt=media&token=fcce3e77-13b0-4ef6-a2a8-828094728ae4";
+        dirImg2 = "https://firebasestorage.googleapis.com/v0/b/pk2-machete.appspot.com/o/motel%2F273694-top-white-wallpaper-2560x1440.jpg?alt=media&token=fcce3e77-13b0-4ef6-a2a8-828094728ae4";
+        dirImg3 = "https://firebasestorage.googleapis.com/v0/b/pk2-machete.appspot.com/o/motel%2F273694-top-white-wallpaper-2560x1440.jpg?alt=media&token=fcce3e77-13b0-4ef6-a2a8-828094728ae4";
+        idGobal = getIntent().getStringExtra("idMotel");
+        temperaturaGobal = "No disponible";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_habitacon);
         //Inflación de los editText:
         etext_Descripcion = findViewById(R.id.DescripcionHabitacion);
         etext_Precio = findViewById(R.id.inputMotelAdd);
         etxt_NombreHabitacion = findViewById(R.id.inputMotelNom);
+        horasI = findViewById(R.id.horasInput);
+        temp = findViewById(R.id.tempI);
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         //Inflación de los Botones de Imagen:
         img_1 = findViewById(R.id.img_1);
         img_2 = findViewById(R.id.img_2);
         img_3 = findViewById(R.id.img_3);
-        img_4 = findViewById(R.id.img_4);
-        img_5 = findViewById(R.id.img_5);
-        img_6 = findViewById(R.id.img_6);
         //Inflación de Botones:
         btn_gallery = findViewById(R.id.botonAbrirGaleria);
         btn_camara = findViewById(R.id.botonTomarFoto);
         btn_save = findViewById(R.id.botonRegistrarse);
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validarDatos(v);
+            }
+        });
         imageArray = new Bitmap[6];
+        if(sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) != null) {
+            sensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+            estaDisponible = true;
+            temp.setText("Calculando");
+        }
+        else{
+            temp.setText(temperaturaGobal);
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(estaDisponible)
+        {
+            sensorManager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(estaDisponible)
+        {
+            sensorManager.unregisterListener(this);
+        }
+    }
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        temperaturaGobal = String.valueOf(event.values[0]);
+        temp.setText("Temperatura: "+ temperaturaGobal+" °C");
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    public void validarDatos(View v){
+        String nom = etxt_NombreHabitacion.getText().toString();
+        String des = etext_Descripcion.getText().toString();
+        String precio = etext_Precio.getText().toString();
+        String horas = horasI.getText().toString();
+        String temperatura = temperaturaGobal;
+        if(nom.isEmpty() || des.isEmpty() || precio.isEmpty() || horas.isEmpty()|| temperatura.isEmpty()){
+            Toast.makeText(getApplicationContext(),"No se han ingresasdo todos los valores", Toast.LENGTH_LONG).show();
+            return;
+        }
+        regist(v, nom,des,precio, dirImg1, dirImg2, dirImg3, idGobal, horas,temperaturaGobal);
+    }
+    public void regist(View v, String nombre, String desv, String preicov, String imagen1v, String imagen2v, String imagen3v, String id, String horasv, String temperaturav)
+    {
+        String nom = nombre;
+        String des = desv;
+        String precio = preicov;
+        String imagen1 = imagen2v;
+        String imagen2 = imagen2v;
+        String imagen3 = imagen3v;
+        String idMotel = id;
+        String horas = horasv;
+        String temperatura = temperaturav;
+        if(!nom.isEmpty() ) {
+            /*
+            HabitacionElementoList habitacion = new HabitacionElementoList(nom,id,des,imagen1,imagen2,imagen3,horas,precio, temperatura);
+            myRef = database.getReference(  PATH_HABITACION + idMotel  + "/habitacion/" + "1");
+            myRef.setValue(habitacion);
+
+             */
+
+            myRef = database.getReference(PATH_MOTEL );
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot child : snapshot.getChildren()) {
+                        Motel motel = child.getValue(Motel.class);
+                        if(idMotel.equals(motel.getId())){
+                            Integer numeroHabitacions = motel.getNumHab() +1;
+                            motel.setNumHab(numeroHabitacions);
+                            // aumentar nuemro de habitaciones del motel
+
+                            HabitacionElementoList habitacion = new HabitacionElementoList(nom,idGobal,des,dirImg1,dirImg2,dirImg3,horas,precio, temperatura);
+                            motel.agregarHabitacion(habitacion);
+                            myRef = database.getReference(PATH_MOTEL + idMotel);
+                            myRef.setValue(motel);
+                            //crear habitacion y asignarla
+                            /*
+                            HabitacionElementoList habitacion = new HabitacionElementoList(nom,idGobal,des,dirImg1,dirImg2,dirImg3,horas,precio, temperatura);
+                            myRef = database.getReference(  PATH_HABITACION + idMotel  + "/habitacion/" + String.valueOf(numeroHabitacions) + "/");
+                            myRef.setValue(habitacion);
+
+                             */
+                            finish();
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
 
     }
     public void clickedOnImg1(View v)
@@ -299,6 +447,8 @@ public class crear_habitacon extends AppCompatActivity {
                         final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                         final Bitmap myImage = BitmapFactory.decodeStream(imageStream);
                         imageArray[imgIndexClicked] = myImage;
+                        imagenUriFinal = data.getData();
+                        subirImagenFirebase(imgIndexClicked);
                         changeImageOnScreen();
                     }
                     catch (FileNotFoundException e)
@@ -307,6 +457,41 @@ public class crear_habitacon extends AppCompatActivity {
                     }
                 }
         }
+    }
+    private void subirImagenFirebase( Integer imagenint) {
+
+        StorageReference riversRef = storageReference.child("motel/" + idGobal + String.valueOf(imagenint));
+        riversRef.putFile(imagenUriFinal)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+
+                        uri.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                String photoLink = uri.toString();
+                                if (imagenint == 0) {
+                                    dirImg1 = photoLink;
+                                }
+                                else if (imagenint == 1) {
+                                    dirImg2 = photoLink;
+                                }
+                                else if (imagenint == 2) {
+
+                                    dirImg3 = photoLink;
+                                }
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getApplicationContext(),"error",Toast.LENGTH_LONG).show();
+                    }
+                });
+
     }
 
     private void applySelectColor (int prevIMG, int currIMG)
@@ -323,18 +508,6 @@ public class crear_habitacon extends AppCompatActivity {
                 break;
             case 2:
                 img_3.getBackground().setColorFilter(Color.parseColor("#FFFFEB3B"),
-                        PorterDuff.Mode.SRC_ATOP);
-                break;
-            case 3:
-                img_4.getBackground().setColorFilter(Color.parseColor("#FFFFEB3B"),
-                        PorterDuff.Mode.SRC_ATOP);
-                break;
-            case 4:
-                img_5.getBackground().setColorFilter(Color.parseColor("#FFFFEB3B"),
-                        PorterDuff.Mode.SRC_ATOP);
-                break;
-            case 5:
-                img_6.getBackground().setColorFilter(Color.parseColor("#FFFFEB3B"),
                         PorterDuff.Mode.SRC_ATOP);
                 break;
             default:
@@ -355,18 +528,7 @@ public class crear_habitacon extends AppCompatActivity {
                 img_3.getBackground().setColorFilter(Color.parseColor("#FFDDDDDD"),
                         PorterDuff.Mode.SRC_ATOP);
                 break;
-            case 3:
-                img_4.getBackground().setColorFilter(Color.parseColor("#FFDDDDDD"),
-                        PorterDuff.Mode.SRC_ATOP);
-                break;
-            case 4:
-                img_5.getBackground().setColorFilter(Color.parseColor("#FFDDDDDD"),
-                        PorterDuff.Mode.SRC_ATOP);
-                break;
-            case 5:
-                img_6.getBackground().setColorFilter(Color.parseColor("#FFDDDDDD"),
-                        PorterDuff.Mode.SRC_ATOP);
-                break;
+
             default:
                 break;
         }
@@ -378,6 +540,7 @@ public class crear_habitacon extends AppCompatActivity {
         {
             case 0:
                 img_1.setImageBitmap(imageArray[imgIndexClicked]);
+
                 break;
             case 1:
                 img_2.setImageBitmap(imageArray[imgIndexClicked]);

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +16,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -75,7 +73,7 @@ public class Registro extends AppCompatActivity {
                             String rol = "0";
                             upcrb.setDisplayName(rol);
                             user.updateProfile(upcrb.build());*/
-                            guardarDatos(mail,pass,name,lastN,cc);
+                            guardarDatos(mail,pass,name,lastN,cc, user.getUid());
                             actualizarPantalla(user);
                         }
                     }else
@@ -100,7 +98,7 @@ public class Registro extends AppCompatActivity {
             startActivity(intent);
         }
     }
-    private void guardarDatos(String mail,String pass,String name,String lastN,String cc )
+    private void guardarDatos(String mail,String pass,String name,String lastN,String cc, String uid)
     {
         //validacion
         int cedula = Integer.parseInt(cc);
@@ -115,7 +113,7 @@ public class Registro extends AppCompatActivity {
             usuario.setCorreo(mail);
             myRef = database.getReference(PATH_USERS);
             //asignacion de cc como key
-            myRef = database.getReference(PATH_USERS + cc);
+            myRef = database.getReference(PATH_USERS + uid);
             myRef.setValue(usuario);
         }
     }
