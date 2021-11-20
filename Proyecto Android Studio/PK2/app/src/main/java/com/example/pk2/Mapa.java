@@ -160,7 +160,7 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public void onSensorChanged(SensorEvent event) {
                 if (mMap != null) {
-                    if (event.values[0] < 5000) {
+                    if (event.values[0] < 100) {
                         Log.i("MAPS", "DARK_MAP" + event.values[0]);
                         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(Mapa.this, R.raw.dark_map));
                     } else {

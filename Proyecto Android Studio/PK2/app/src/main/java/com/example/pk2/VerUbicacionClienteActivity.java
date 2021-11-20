@@ -128,7 +128,7 @@ public class VerUbicacionClienteActivity extends FragmentActivity implements OnM
             @Override
             public void onSensorChanged(SensorEvent event) {
                 if (mMap != null) {
-                    if (event.values[0] < 5000) {
+                    if (event.values[0] < 100) {
                         Log.i("MAPS", "DARK_MAP" + event.values[0]);
                         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(VerUbicacionClienteActivity.this, R.raw.dark_map));
                     } else {
@@ -181,10 +181,17 @@ public class VerUbicacionClienteActivity extends FragmentActivity implements OnM
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     for (DataSnapshot child : snapshot.getChildren()) {
                                         Usuario usr = child.getValue(Usuario.class);
-                                   if(usr.isUbi())
-                                    {
-                                        mDestination = new LatLng(usr.getLat(), usr.getLon());
+                                       if(usr.isUbi())
+                                        {
+                                            mDestination = new LatLng(usr.getLat(), usr.getLon());
                                         }
+                                       else{
+                                           if ( motelMarker != null) {
+                                               motelMarker.remove();
+                                               mDestination = null;
+                                               limpiarLinea();
+                                           }
+                                       }
                                     }
                                 }
 
@@ -194,7 +201,7 @@ public class VerUbicacionClienteActivity extends FragmentActivity implements OnM
                                 }
                             });
                         } else {
-                            motelMarker = mMap.addMarker(new MarkerOptions().position(mDestination).title("nombreDirMoterl").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                            motelMarker = mMap.addMarker(new MarkerOptions().position(mDestination).title("Ubicacion Usuario").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                             drawRoute();
                         }
 
@@ -322,6 +329,14 @@ public class VerUbicacionClienteActivity extends FragmentActivity implements OnM
 
 
 
+    private void limpiarLinea(){
+        String url = getDirectionsUrl(posicionActual.getPosition(), posicionActual.getPosition());
+
+        VerUbicacionClienteActivity.DownloadTask downloadTask = new VerUbicacionClienteActivity.DownloadTask();
+
+        // Start downloading json data from Google Directions API
+        downloadTask.execute(url);
+    }
     private void drawRoute(){
 
         // Getting URL to the Google Directions API
@@ -486,6 +501,7 @@ public class VerUbicacionClienteActivity extends FragmentActivity implements OnM
                     mPolyline.remove();
                 }
                 mPolyline = mMap.addPolyline(lineOptions);
+
 
             }
         }
