@@ -1,11 +1,14 @@
 package com.example.pk2;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,14 +36,18 @@ public class Perfil extends AppCompatActivity {
     static final String PATH_USERS = "users/";
     FirebaseDatabase database;
     DatabaseReference myRef;
+    @SuppressLint("WrongConstant")
+    @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
+
         getWindow().setStatusBarColor(getResources().getColor(R.color.moraitoMelo));
+        getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(0x00000008, 0x00000008);
         //inflates
         salir = findViewById(R.id.botonLogOut);
-        temperatura = findViewById(R.id.botonTemperatura);
         nombre = findViewById(R.id.perfilNombre);
         cedula = findViewById(R.id.perfilCedula);
         correo = findViewById(R.id.perfilCorreo);
@@ -56,13 +63,7 @@ public class Perfil extends AppCompatActivity {
                 Perfil.this.finish();
             }
         });
-        temperatura.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Perfil.this,Temperatura.class);
-                startActivity(intent);
-            }
-        });
+
         cargar(mAuth.getCurrentUser());
     }
     private void cargar(FirebaseUser usuario2)

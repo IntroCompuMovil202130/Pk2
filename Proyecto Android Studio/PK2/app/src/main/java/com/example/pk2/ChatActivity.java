@@ -1,9 +1,12 @@
 package com.example.pk2;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -30,10 +33,14 @@ public class ChatActivity extends AppCompatActivity {
     static final String PATH_DUENO = "dueno/";
 
 
+    @SuppressLint("WrongConstant")
+    @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(0x00000008, 0x00000008);
         //inflate base de datos y autenticacion
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();

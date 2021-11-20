@@ -1,11 +1,13 @@
 package com.example.pk2;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -20,6 +22,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -72,6 +75,8 @@ public class crear_habitacon extends AppCompatActivity implements SensorEventLis
     private boolean estaDisponible;
 
 
+    @SuppressLint("WrongConstant")
+    @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -82,6 +87,8 @@ public class crear_habitacon extends AppCompatActivity implements SensorEventLis
         temperaturaGobal = "No disponible";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_habitacon);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(0x00000008, 0x00000008);
         //Inflación de los editText:
         etext_Descripcion = findViewById(R.id.DescripcionHabitacion);
         etext_Precio = findViewById(R.id.inputMotelAdd);

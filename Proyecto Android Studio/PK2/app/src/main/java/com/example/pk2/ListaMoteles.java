@@ -1,13 +1,16 @@
 package com.example.pk2;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -36,14 +39,16 @@ public class ListaMoteles extends AppCompatActivity {
     DatabaseReference myRef;
     FirebaseAuth mAuth;
 
+    @SuppressLint("WrongConstant")
+    @RequiresApi(api = Build.VERSION_CODES.R)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_moteles);
-
+        getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        getWindow().getDecorView().getWindowInsetsController().setSystemBarsAppearance(0x00000008, 0x00000008);
         //inflate
         bPerfil = findViewById(R.id.botonPerifl);
-
         bPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

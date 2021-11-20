@@ -46,7 +46,7 @@
     <TextView
         android:id="@+id/descripcionHabitacion"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:text="Consta de una confortable cama doble, sillón erótico, baño y servicios (Televisión satelital, TV de última generación, equipo de sonido e internet wi –fi). Todas las habitaciones cuentan con cargador USB para todo tipo de celular."
