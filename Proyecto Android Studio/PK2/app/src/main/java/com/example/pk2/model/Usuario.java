@@ -4,19 +4,30 @@ public class Usuario {
     String correo, ccontraseña,nombre,apellido,cedula, id;
     double lat;
     double lon;
+    boolean ubi;
 
     public Usuario() {
 
     }
-    public Usuario(String correo, String ccontraseña, String nombre, String apellido, String cedula,double lat,double lon, String id) {
+
+    public Usuario(String correo, String ccontraseña, String nombre, String apellido, String cedula, String id, double lat, double lon, boolean ubi) {
         this.correo = correo;
         this.ccontraseña = ccontraseña;
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
+        this.id = id;
         this.lat = lat;
         this.lon = lon;
-        this.id = id;
+        this.ubi = ubi;
+    }
+
+    public boolean isUbi() {
+        return ubi;
+    }
+
+    public void setUbi(boolean ubi) {
+        this.ubi = ubi;
     }
 
     public String getId() {

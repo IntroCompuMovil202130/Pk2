@@ -31,7 +31,7 @@ public class Registro_duenio extends AppCompatActivity {
     //Base de datos
     FirebaseDatabase database;
     DatabaseReference myRef;
-    //Ruta en la que se guarda el usuario
+    //Ruta en la que se guarda el deuño
     static final String PATH_DUENO = "dueno/";
 
 
@@ -71,6 +71,8 @@ public class Registro_duenio extends AppCompatActivity {
             usuario.setCedula(cc);
             usuario.setCcontraseña(pass);
             usuario.setCorreo(mail);
+            usuario.setId(uid);
+            usuario.setUbi(false);
             myRef = database.getReference(PATH_DUENO);
             //asignacion de cc como key
             myRef = database.getReference(PATH_DUENO + uid);

@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.example.pk2.model.Dueno;
 import com.example.pk2.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -152,7 +151,7 @@ public class LogIn extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for(DataSnapshot child : snapshot.getChildren()) {
-                            Dueno dueno = child.getValue(Dueno.class);
+                            Usuario dueno = child.getValue(Usuario.class);
                             if(dueno.getCorreo().equals(user.getEmail())) {
                                 Intent intent = new Intent(LogIn.this, AdmLogActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -63,7 +63,6 @@ public class crear_habitacon extends AppCompatActivity implements SensorEventLis
     FirebaseDatabase database;
     DatabaseReference myRef;
     FirebaseAuth mAuth;
-    static final String PATH_HABITACION = "motel/";
     static final String PATH_MOTEL = "motel/";
     Uri imagenUriFinal;
     FirebaseStorage storage;
