@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdmLogActivity extends AppCompatActivity {
-    Button btnAgHab, botonCerrarSesion;
+    Button btnAgHab, botonCerrarSesion, chat;
     TextView nombreMotel, direccionMotel;
     ImageView portada;
     static final String PATH_USER = "dueno/";
@@ -51,9 +51,19 @@ public class AdmLogActivity extends AppCompatActivity {
         portada = findViewById(R.id.portadaMotelDueno);
         direccionMotel = findViewById(R.id.textoDireccion);
         botonCerrarSesion = findViewById(R.id.logOutDuenio);
+        chat = findViewById(R.id.chats);
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         elementos = new ArrayList<>();
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //aca tiene que llamar al historial de chats
+                Intent intent = new Intent(v.getContext(),ChatActivity.class);
+                intent.putExtra("nombrMot",direccionMotel.getText());
+                startActivity(intent);
+            }
+        });
         btnAgHab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

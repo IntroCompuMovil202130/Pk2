@@ -43,7 +43,7 @@ public class ChatActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         myRefD = database.getReference(PATH_DUENO);
         comprobarU(menu);
-        //comprobarD(menu);
+        comprobarD(menu);
         return true;
     }
     @Override
@@ -60,6 +60,7 @@ public class ChatActivity extends AppCompatActivity {
         if(itemClicked == R.id.ubiUser)
         {
             Intent intent = new Intent(ChatActivity.this,VerUbicacionClienteActivity.class);
+            intent.putExtra("nombreMot",getIntent().getStringExtra("nombrMot"));
             startActivity(intent);
         }
 
@@ -77,7 +78,7 @@ public class ChatActivity extends AppCompatActivity {
                     Usuario actual = child.getValue(Usuario.class);
                     if (actual.getId().equals(mAuth.getUid()))
                     {
-                        //codigo para iniciar menu de dueño en el chat
+                        getMenuInflater().inflate(R.menu.duenomenu, menu);
                     }
                 }
             }

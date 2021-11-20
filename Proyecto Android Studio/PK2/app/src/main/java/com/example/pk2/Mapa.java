@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pk2.model.Usuario;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -57,6 +58,12 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONObject;
 
@@ -74,6 +81,12 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ActivityMapaBinding binding;
+
+    FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+    //Ruta en la que estan los usuarios y dueños
+    static final String PATH_USERS = "users/";
 
     private Marker posicionActual, motelMarker;
     String permission = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -111,13 +124,15 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         txDireccion = findViewById(R.id.textoMapaDireccion);
         txNombreMotel = findViewById(R.id.textMapaNombreMotel);
 
+        database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
         botonChat.setOnClickListener(new botonListener());
 
         Intent intent = getIntent();
         nombreDirMoterl = intent.getStringExtra("Direccion");
         txNombreMotel.setText(intent.getStringExtra("NombreMotel").toString());
         txDireccion.setText(intent.getStringExtra("Direccion").toString());
-
         //mapa
         mGeocoder = new Geocoder(this);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -162,7 +177,27 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         };
         return sel;
     }
+    private void actualizarBD(Location loc){
+        myRef = database.getReference(PATH_USERS);
+        myRef.orderByChild("id").equalTo(mAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot child : snapshot.getChildren()){
+                    Usuario act = child.getValue(Usuario.class);
+                    act.setLat(loc.getLatitude());
+                    act.setLon(loc.getLongitude());
+                    myRef.child(act.getId()).setValue(act);
 
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
     private LocationRequest createLocationRequest() {
         LocationRequest locationRequestV = LocationRequest.create()
                 .setInterval(1000)
@@ -187,6 +222,7 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
                     }
                     Log.i("tag", "location: " + location.toString());
                     actual = new LatLng(location.getLatitude(), location.getLongitude());
+                    actualizarBD(location);
                     posicionActual = mMap.addMarker(new MarkerOptions().position(actual).title("").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
 
