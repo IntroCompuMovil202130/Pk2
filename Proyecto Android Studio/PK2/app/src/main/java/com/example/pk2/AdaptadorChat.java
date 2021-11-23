@@ -15,7 +15,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class AdaptadorChat extends RecyclerView.Adapter
@@ -47,7 +50,7 @@ public class AdaptadorChat extends RecyclerView.Adapter
         Mensaje_Texto message =  m_messageList.get(position);
         FirebaseUser currUser = mAuth.getCurrentUser();
 
-        if (message.getDueno().getId().equals(currUser.getUid())) {
+        if (message.getDueno().equals(currUser.getUid())) {
             // If the current user is the sender of the message
             return M_VISTA_TIPO_ENVIADO;
         } else {
@@ -57,7 +60,7 @@ public class AdaptadorChat extends RecyclerView.Adapter
     }
     void addMessage(Mensaje_Texto message)
     {
-        m_messageList.add(0, message);
+        m_messageList.add(message);
         notifyDataSetChanged();
     }
     void setUpdatedList(List<Mensaje_Texto> newList)
@@ -102,7 +105,7 @@ public class AdaptadorChat extends RecyclerView.Adapter
         ImageView profileImage;
         RecibidorMensajeHolder(View itemView) {
             super(itemView);
-            messageText = (TextView) itemView.findViewById(R.id.text_message_r);
+            messageText = (TextView) itemView.findViewById(R.id.name_chat_d);
             timeText = (TextView) itemView.findViewById(R.id.text_message_hour_r);
             nameText = (TextView) itemView.findViewById(R.id.text_uname_r);
             profileImage = (ImageView) itemView.findViewById(R.id.image_profile_r);
@@ -115,26 +118,61 @@ public class AdaptadorChat extends RecyclerView.Adapter
             final long Minutes = TimeUnit.MILLISECONDS.toMinutes(message.getCreatedAt());
             final long Seconds = TimeUnit.MILLISECONDS.toSeconds(message.getCreatedAt());
             timeText.setText(String.format("%d : %d : %d", Hours, Minutes, Seconds));
-            nameText.setText(message.getDueno().getNombre());
+            nameText.setText(message.getNombreDueno());
         }
     }
     private class EnviadorMensajeHolder extends RecyclerView.ViewHolder
     {
-        TextView messageText, timeText;
+        TextView messageText, timeText, dateText;
         EnviadorMensajeHolder(View itemView) {
             super(itemView);
 
             messageText = (TextView) itemView.findViewById(R.id.text_message);
             timeText = (TextView) itemView.findViewById(R.id.text_time);
+            dateText = (TextView) itemView.findViewById(R.id.textView2);
         }
         void bind(Mensaje_Texto message) {
+
             messageText.setText(message.getContenidoMensaje());
 
             //Transformar la hora guardada (En Milisegundos ) a una hora formateada.
-            final long Hours= TimeUnit.MILLISECONDS.toHours(message.getCreatedAt());
-            final long Minutes = TimeUnit.MILLISECONDS.toMinutes(message.getCreatedAt());
-            final long Seconds = TimeUnit.MILLISECONDS.toSeconds(message.getCreatedAt());
-            timeText.setText(String.format("%d : %d : %d", Hours, Minutes, Seconds));
+
+            long newTime = message.getCreatedAt();
+            newTime = newTime + TimeZone.getTimeZone("America/Bogota").getRawOffset();
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Bogota"));
+            calendar.setTimeInMillis(newTime);
+
+            int mHour = calendar.get(Calendar.HOUR);
+            int mMinute = calendar.get(Calendar.MINUTE);
+            int mSecond = calendar.get(Calendar.SECOND);
+            String mHourS, mMinuteS, mSecondsS;
+            if (mHour < 9)
+            {
+                mHourS = "0"+String.valueOf(mHour);
+            }
+            else
+            {
+                 mHourS = String.valueOf(mHour);
+            }
+            if (mMinute < 9)
+            {
+                 mMinuteS = "0"+String.valueOf(mMinute);
+            }
+            else
+            {
+                 mMinuteS = String.valueOf(mMinute);
+            }
+            if (mSecond < 9)
+            {
+                 mSecondsS = "0"+String.valueOf(mSecond);
+            }
+            else
+            {
+                 mSecondsS = String.valueOf(mSecond);
+            }
+            timeText.setText(mHourS + ":" + mMinuteS + ":" +mSecondsS);
+            String month = new DateFormatSymbols().getMonths()[calendar.get(Calendar.MONTH)-1];
+            dateText.setText(month + " " + String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         }
     }
 

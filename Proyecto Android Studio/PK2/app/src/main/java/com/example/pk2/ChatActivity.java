@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,6 +30,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +46,7 @@ public class ChatActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     //Base de datos
     FirebaseDatabase database;
-    DatabaseReference myRefU,myRefD;
+    DatabaseReference myRefU,myRefD, staticMyRefC;
     //Ruta en la que estan los usuarios y dueños
     static final String PATH_USERS = "users/";
     static final String PATH_DUENO = "dueno/";
@@ -59,6 +67,9 @@ public class ChatActivity extends AppCompatActivity {
 
     ImageButton b_Send;
 
+    Context localContext;
+    ValueEventListener mySubDB;
+
 
     @SuppressLint("WrongConstant")
     @RequiresApi(api = Build.VERSION_CODES.R)
@@ -70,9 +81,12 @@ public class ChatActivity extends AppCompatActivity {
         //inflate base de datos y autenticacion
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+
         currIntent = getIntent();
+        localContext = this;
         esDueno = currIntent.getBooleanExtra("esDueno", false);
         getUsers();
+
         b_Send = findViewById(R.id.botonEnviarChat);
         e_Text = findViewById(R.id.messageTextChat);
         getWindow().setStatusBarColor(getResources().getColor(R.color.white));
@@ -85,14 +99,56 @@ public class ChatActivity extends AppCompatActivity {
                 if (!TextUtils.isEmpty(e_Text.getText().toString().trim()))
                 {
                     Date date = new Date();
-                    Mensaje_Texto nuevoMensaje = new Mensaje_Texto(e_Text.getText().toString(), mySender, date.getTime());
+
+                    Mensaje_Texto nuevoMensaje = new Mensaje_Texto(e_Text.getText().toString(), mySender.getId(), date.getTime(), mySender.getNombre());
                     sendMessage(nuevoMensaje);
                     e_Text.setText("");
+                    e_Text.setHint("");
                 }
             }
         });
 
+
+
     }
+    private void inscribeToDB()
+    {
+        staticMyRefC = database.getReference("chat/");
+        mySubDB = staticMyRefC.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+                for (DataSnapshot child : snapshot.getChildren())
+                {
+                        Log.d("TAG", "There was a change in the database");
+                        Chat actual = child.getValue(Chat.class);
+                        if (esDueno) {
+                                if (actual.getId_Dueno().equals(mySender.getId()) ) {
+                                    a_Chat.setUpdatedList(actual.getNoMensajes());
+                                }
+                        } else {
+                                if (actual.getId_Dueno().equals(myReciever.getId()) ) {
+                                    Log.d("TAG", "There was a change in the Chat");
+                                    a_Chat.setUpdatedList(actual.getNoMensajes());
+                                }
+                            }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        staticMyRefC.removeEventListener(mySubDB);
+    }
+
+
     /*inflate del menu y manejo de las opciones de este*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -193,84 +249,113 @@ public class ChatActivity extends AppCompatActivity {
     }
     private void sendMessage(Mensaje_Texto nuevoMensaje)
     {
-        myRefU = database.getReference(PATH_USERS);
+        myRefU = database.getReference("chat/");
         a_Chat.addMessage(nuevoMensaje);
-        if (esDueno)
+        myRefU.addListenerForSingleValueEvent(new ValueEventListener()
         {
-
-            myRefU.orderByChild("id").equalTo(myReciever.getId()).addListenerForSingleValueEvent(new ValueEventListener()
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
             {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot)
+                boolean itExists = false;
+                for (DataSnapshot child : snapshot.getChildren())
                 {
-                    for (DataSnapshot child : snapshot.getChildren()){
-                        Usuario currUser = child.getValue(Usuario.class);
-                        if(!currUser.doesChatExists(mySender.getId()))
-                        {
-                            Chat myNewChat = new Chat(mySender.getId());
-                            myReciever.agregarChat(myNewChat);
-                        }
-                        myReciever.agregarMensaje(nuevoMensaje, mySender.getId());
-                        myRefU.child(myReciever.getId()).setValue(myReciever);
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-        }
-        else
-        {
-
-            myRefU.orderByChild("id").equalTo(mySender.getId()).addListenerForSingleValueEvent(new ValueEventListener()
-            {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot)
-                {
-                    for (DataSnapshot child : snapshot.getChildren())
+                    Chat actual = child.getValue(Chat.class);
+                    if (esDueno)
                     {
-                        Usuario currUser = child.getValue(Usuario.class);
-                        if(!currUser.doesChatExists(myReciever.getId()))
+                        if (actual.getId_Dueno().equals(mySender.getId()) )
                         {
-                            Chat myNewChat = new Chat(myReciever.getId());
-                            mySender.agregarChat(myNewChat);
-                            myRefU.child(mySender.getId()).child("/listChats/").child("0/").setValue(myNewChat);
-
+                            itExists = true;
+                            actual.agregarMensaje(nuevoMensaje);
+                            myRefU = database.getReference("chat/" + mySender.getId() + "/");
+                            myRefU.setValue(actual);
                         }
-                        mySender.agregarMensaje(nuevoMensaje, myReciever.getId());
-                        
-                        myRefU.child(mySender.getId()).child("/listChats/").child("noMensajes/").setValue(nuevoMensaje);
+                    }
+                    else
+                    {
+                        if (actual.getId_Dueno().equals(myReciever.getId()))
+                        {
+                            itExists = true;
+                            actual.agregarMensaje(nuevoMensaje);
+                            myRefU = database.getReference("chat/" + myReciever.getId() + "/");
+                            myRefU.setValue(actual);
+                        }
                     }
                 }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                if (!itExists)
+                {
+                    if(esDueno)
+                    {
+                        Chat myNewChat = new Chat(mySender.getId(), myReciever.getId());
+                        mySender.agregarChat(myNewChat);
+                        myRefU = database.getReference("chat/" + mySender.getId() + "/");
+                        myRefU.setValue(myNewChat);
+                        myNewChat.agregarMensaje(nuevoMensaje);
+                        myRefU.setValue(myNewChat);
 
+                    }
+                    else {
+                        Chat myNewChat = new Chat(myReciever.getId(), mySender.getId());
+                        mySender.agregarChat(myNewChat);
+                        myRefU = database.getReference("chat/" + myReciever.getId() + "/");
+                        myRefU.setValue(myNewChat);
+                        myNewChat.agregarMensaje(nuevoMensaje);
+                        myRefU.setValue(myNewChat);
+                    }
                 }
-            });
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        }
+            }
+        });
+
     }
     private void displayList()
     {
-
+        myRefU = database.getReference("chat/");
         r_ListMensajes = findViewById(R.id.chat_recycler_view);
-        if (esDueno)
+        myRefU.addListenerForSingleValueEvent(new ValueEventListener()
         {
-            //Inflar reciclador y crear adaptador.
-            a_Chat = new AdaptadorChat(this, myReciever.getMessageList(mySender.getId()));
-            r_ListMensajes.setLayoutManager(new LinearLayoutManager(this));
-            r_ListMensajes.setAdapter(a_Chat);
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean existeChat = false;
+                for(DataSnapshot child : snapshot.getChildren())
+                {
+                    Chat myChat = child.getValue(Chat.class);
+                    if (esDueno)
+                    {
+                        if(myChat.getId_Dueno().equals(mySender.getId()))
+                        {
+                            existeChat = true;
+                            a_Chat = new AdaptadorChat(localContext, myChat.getNoMensajes());
+                            r_ListMensajes.setLayoutManager(new LinearLayoutManager(localContext));
+                            r_ListMensajes.setAdapter(a_Chat);
+                        }
+                    }
+                    else
+                    {
+                        if(myChat.getId_Dueno().equals(myReciever.getId()) ) {
+                            existeChat = true;
+                            a_Chat = new AdaptadorChat(localContext, myChat.getNoMensajes());
+                            r_ListMensajes.setLayoutManager(new LinearLayoutManager(localContext));
+                            r_ListMensajes.setAdapter(a_Chat);
+                        }
+                    }
+                }
+                if (!existeChat)
+                {
+                    a_Chat = new AdaptadorChat(localContext, new ArrayList<Mensaje_Texto>());
+                    r_ListMensajes.setLayoutManager(new LinearLayoutManager(localContext));
+                    r_ListMensajes.setAdapter(a_Chat);
+                }
+                inscribeToDB();
+            }
 
-        }
-        else
-        {
-            //Inflar reciclador y crear adaptador.
-            a_Chat = new AdaptadorChat(this, mySender.getMessageList(myReciever.getId()));
-            r_ListMensajes.setLayoutManager(new LinearLayoutManager(this));
-            r_ListMensajes.setAdapter(a_Chat);
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void getUsers()
@@ -296,7 +381,8 @@ public class ChatActivity extends AppCompatActivity {
                     myRefU.addListenerForSingleValueEvent(new ValueEventListener()
                     {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        public void onDataChange(@NonNull DataSnapshot snapshot)
+                        {
                             for(DataSnapshot child : snapshot.getChildren())
                             {
                                 Usuario buscado = child.getValue(Usuario.class);
@@ -347,7 +433,6 @@ public class ChatActivity extends AppCompatActivity {
                             {
                                 Usuario buscado = child.getValue(Usuario.class);
 
-                                Log.d("TEST_A", buscado.getId());
                                 if(buscado.getId().equals(currIntent.getStringExtra("idReciever")))
                                 {
                                     myReciever = buscado;
