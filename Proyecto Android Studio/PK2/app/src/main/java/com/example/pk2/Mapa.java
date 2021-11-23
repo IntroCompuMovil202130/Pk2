@@ -87,9 +87,10 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
 
     FirebaseAuth mAuth;
     FirebaseDatabase database;
-    DatabaseReference myRef;
+    DatabaseReference myRef, myRefDueno;
     //Ruta en la que estan los usuarios y dueños
     static final String PATH_USERS = "users/";
+    static final String PATH_DUENOS = "dueno/";
 
     private Marker posicionActual, motelMarker;
     String permission = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -102,6 +103,8 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
+
+    String idDueno;
 
     //sensors
     SensorManager sensorManager;
@@ -158,8 +161,35 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         @Override
         public void onClick(View v) {
 
-            Intent intent = new Intent(v.getContext(), ChatActivity.class);
-            startActivity(intent);
+            Intent chatIntent = new Intent(v.getContext(), ChatActivity.class);
+            myRefDueno = database.getReference(PATH_DUENOS);
+            Intent currIntent = getIntent();
+            Log.d("TEST_A", currIntent.getStringExtra("idMotel"));
+            myRefDueno.addListenerForSingleValueEvent(new ValueEventListener()
+            {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot child : snapshot.getChildren()) {
+                        Usuario dueno = child.getValue(Usuario.class);
+                        Log.d("TEST_A", currIntent.getStringExtra("idMotel"));
+                        if (dueno.getId().equals(currIntent.getStringExtra("idMotel")))
+                        {
+                            idDueno = dueno.getId();
+                        }
+                    }
+                    Log.d("TEST_A",idDueno);
+                    chatIntent.putExtra("idReciever", idDueno);
+                    chatIntent.putExtra("esDueno", false);
+                    startActivity(chatIntent);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                };
+
+            });
+
         }
     }
     private SensorEventListener lightSensorCode() {
