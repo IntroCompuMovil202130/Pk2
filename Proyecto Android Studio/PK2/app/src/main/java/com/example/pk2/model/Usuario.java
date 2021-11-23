@@ -32,7 +32,7 @@ public class Usuario {
         {
             listChats = new ArrayList<>();
         }
-        listChats.add(myChat);
+        listChats.add(0, myChat);
     }
 
     public boolean doesChatExists(String idChat)
@@ -43,7 +43,7 @@ public class Usuario {
         }
         for (Chat e : listChats)
         {
-            if (e.getId_Reciever() == idChat)
+            if (e.getId_Dueno() == idChat)
             {
                 return true;
             }
@@ -51,15 +51,51 @@ public class Usuario {
         return false;
     }
 
+    public int getChatPosition(String idChat)
+    {
+        if (listChats == null)
+        {
+            return 0;
+        }
+        int counter = 0;
+        for (Chat e : listChats)
+        {
+            if (e.getId_Dueno() == idChat)
+            {
+                return counter;
+            }
+            counter++;
+        }
+        return 0;
+
+    }
+
     public void agregarMensaje(Mensaje_Texto mensaje, String idChat)
     {
         for (Chat e : listChats)
         {
-            if (e.getId_Reciever() == idChat)
+            if (e.getId_Dueno() == idChat)
             {
                 e.agregarMensaje(mensaje);
             }
         }
+    }
+    public Chat getSpecificChat (String idChat)
+    {
+        if (listChats == null)
+        {
+            return new Chat();
+        }
+        int counter = 0;
+        for (Chat e : listChats)
+        {
+            if (e.getId_Dueno() == idChat)
+            {
+                return e;
+            }
+            counter++;
+        }
+        return new Chat();
     }
     public List<Mensaje_Texto> getMessageList(String idChat)
     {
@@ -70,12 +106,16 @@ public class Usuario {
         }
         for (Chat e : listChats)
         {
-            if (e.getId_Reciever() == idChat)
+            if (e.getId_Dueno() == idChat)
             {
                 return e.getNoMensajes();
             }
         }
         return emptyList;
+    }
+
+    public List<Chat> getListChats() {
+        return listChats;
     }
 
     public boolean isUbi() {
