@@ -1,13 +1,17 @@
 package com.example.pk2.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Usuario {
     String correo, ccontraseña,nombre,apellido,cedula, id;
     double lat;
     double lon;
     boolean ubi;
+    List<Chat> listChats;
 
     public Usuario() {
-
+        listChats = new ArrayList<>();
     }
 
     public Usuario(String correo, String ccontraseña, String nombre, String apellido, String cedula, String id, double lat, double lon, boolean ubi) {
@@ -20,6 +24,58 @@ public class Usuario {
         this.lat = lat;
         this.lon = lon;
         this.ubi = ubi;
+        listChats = new ArrayList<>();
+    }
+    public void agregarChat(Chat myChat)
+    {
+        if (listChats == null)
+        {
+            listChats = new ArrayList<>();
+        }
+        listChats.add(myChat);
+    }
+
+    public boolean doesChatExists(String idChat)
+    {
+        if (listChats == null)
+        {
+            return false;
+        }
+        for (Chat e : listChats)
+        {
+            if (e.getId_Reciever() == idChat)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void agregarMensaje(Mensaje_Texto mensaje, String idChat)
+    {
+        for (Chat e : listChats)
+        {
+            if (e.getId_Reciever() == idChat)
+            {
+                e.agregarMensaje(mensaje);
+            }
+        }
+    }
+    public List<Mensaje_Texto> getMessageList(String idChat)
+    {
+        List<Mensaje_Texto> emptyList = new ArrayList<>();
+        if (listChats == null)
+        {
+            return emptyList;
+        }
+        for (Chat e : listChats)
+        {
+            if (e.getId_Reciever() == idChat)
+            {
+                return e.getNoMensajes();
+            }
+        }
+        return emptyList;
     }
 
     public boolean isUbi() {
