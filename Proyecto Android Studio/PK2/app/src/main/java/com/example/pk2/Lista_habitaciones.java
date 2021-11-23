@@ -69,6 +69,7 @@ public class Lista_habitaciones extends AppCompatActivity {
                 Intent intVAmos = new Intent(v.getContext(),Mapa.class);
                 intVAmos.putExtra("Direccion", txDireccion.getText());
                 intVAmos.putExtra("NombreMotel", txNombreMotel.getText());
+                intVAmos.putExtra("idMotel", idGlobal);
                 startActivity(intVAmos);
             }
         });
