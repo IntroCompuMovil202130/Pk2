@@ -60,7 +60,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/delineado_mororado"
-                android:hint="Escribe un Mensaje aquí"
                 tools:ignore="TouchTargetSizeCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 

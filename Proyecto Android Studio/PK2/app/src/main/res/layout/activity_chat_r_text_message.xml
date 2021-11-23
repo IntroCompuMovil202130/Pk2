@@ -59,7 +59,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_message_r"
+                android:id="@+id/name_chat_d"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
