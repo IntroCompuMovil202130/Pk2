@@ -172,6 +172,7 @@ public class ChatActivity extends AppCompatActivity {
         {
             Intent intent = new Intent(ChatActivity.this,VerUbicacionClienteActivity.class);
             intent.putExtra("nombreMot",getIntent().getStringExtra("valor"));
+            intent.putExtra("idU", getIntent().getStringExtra("idReciever"));
             startActivity(intent);
         }
 

@@ -176,7 +176,7 @@ public class VerUbicacionClienteActivity extends FragmentActivity implements OnM
 
                         if (mDestination == null) {
                             myRef = database.getReference(PATH_USERS);
-                            myRef.orderByChild("id").equalTo("W7m9XBpwbENuF8D1oH5UHV6Vcys1").addValueEventListener(new ValueEventListener() {
+                            myRef.orderByChild("id").equalTo(getIntent().getStringExtra("idU")).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     for (DataSnapshot child : snapshot.getChildren()) {
