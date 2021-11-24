@@ -171,7 +171,7 @@ public class ChatActivity extends AppCompatActivity {
         if(itemClicked == R.id.ubiUser)
         {
             Intent intent = new Intent(ChatActivity.this,VerUbicacionClienteActivity.class);
-            intent.putExtra("nombreMot",getIntent().getStringExtra("nombrMot"));
+            intent.putExtra("nombreMot",getIntent().getStringExtra("valor"));
             startActivity(intent);
         }
 

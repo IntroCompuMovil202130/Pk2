@@ -110,6 +110,7 @@ public class activity_admin_chats extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(),ChatActivity.class);
                         intent.putExtra("idReciever", elementos.getId_Reciever());
                         intent.putExtra("esDueno", true);
+                        intent.putExtra("valor", getIntent().getStringExtra("valor"));
                         startActivity(intent);
                     }
                 });

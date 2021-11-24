@@ -68,6 +68,7 @@ public class AdmLogActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //aca tiene que llamar al historial de chats
                 Intent intent = new Intent(v.getContext(),activity_admin_chats.class);
+                intent.putExtra("valor", direccionMotel.getText());
                 startActivity(intent);
             }
         });
