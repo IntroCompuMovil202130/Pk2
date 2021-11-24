@@ -101,7 +101,7 @@ public class AdaptadorChat extends RecyclerView.Adapter
 
     private class RecibidorMensajeHolder extends RecyclerView.ViewHolder
     {
-        TextView messageText, timeText, nameText;
+        TextView messageText, timeText, nameText, dateText;
         ImageView profileImage;
         RecibidorMensajeHolder(View itemView) {
             super(itemView);
@@ -109,15 +109,47 @@ public class AdaptadorChat extends RecyclerView.Adapter
             timeText = (TextView) itemView.findViewById(R.id.text_message_hour_r);
             nameText = (TextView) itemView.findViewById(R.id.text_uname_r);
             profileImage = (ImageView) itemView.findViewById(R.id.image_profile_r);
+            dateText = (TextView) itemView.findViewById(R.id.text_date_r);
         }
         void bind(Mensaje_Texto message) {
             messageText.setText(message.getContenidoMensaje());
 
-            //WRONG.
-            final long Hours= TimeUnit.MILLISECONDS.toHours(message.getCreatedAt());
-            final long Minutes = TimeUnit.MILLISECONDS.toMinutes(message.getCreatedAt());
-            final long Seconds = TimeUnit.MILLISECONDS.toSeconds(message.getCreatedAt());
-            timeText.setText(String.format("%d : %d : %d", Hours, Minutes, Seconds));
+            long newTime = message.getCreatedAt();
+            newTime = newTime + TimeZone.getTimeZone("America/Bogota").getRawOffset();
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Bogota"));
+            calendar.setTimeInMillis(newTime);
+
+            int mHour = calendar.get(Calendar.HOUR);
+            int mMinute = calendar.get(Calendar.MINUTE);
+            int mSecond = calendar.get(Calendar.SECOND);
+            String mHourS, mMinuteS, mSecondsS;
+            if (mHour < 9)
+            {
+                mHourS = "0"+String.valueOf(mHour);
+            }
+            else
+            {
+                mHourS = String.valueOf(mHour);
+            }
+            if (mMinute < 9)
+            {
+                mMinuteS = "0"+String.valueOf(mMinute);
+            }
+            else
+            {
+                mMinuteS = String.valueOf(mMinute);
+            }
+            if (mSecond < 9)
+            {
+                mSecondsS = "0"+String.valueOf(mSecond);
+            }
+            else
+            {
+                mSecondsS = String.valueOf(mSecond);
+            }
+            timeText.setText(mHourS + ":" + mMinuteS + ":" +mSecondsS);
+            String month = new DateFormatSymbols().getMonths()[calendar.get(Calendar.MONTH)-1];
+            dateText.setText(month + " " + String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
             nameText.setText(message.getNombreDueno());
         }
     }

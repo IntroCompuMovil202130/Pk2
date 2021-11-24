@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.pk2.model.ChatElementoList;
-import com.example.pk2.model.MotelElementoList;
 
 import java.util.List;
 
@@ -21,13 +20,13 @@ public class AdaptadorListaChatsDueno extends RecyclerView.Adapter<AdaptadorList
     private List<ChatElementoList> datos;
     private LayoutInflater inflater;
     private Context context;
-    final adaptadorList.OnItemClickListener listener;
+    final AdaptadorListaChatsDueno.OnItemClickListener listener;
     public  interface  OnItemClickListener{
-        void onItemClick(MotelElementoList elementos);
+        void onItemClick(ChatElementoList elementos);
     }
-    public AdaptadorListaChatsDueno(List<ChatElementoList> datos, LayoutInflater inflater, Context context, adaptadorList.OnItemClickListener listener) {
+    public AdaptadorListaChatsDueno(List<ChatElementoList> datos, Context context, AdaptadorListaChatsDueno.OnItemClickListener listener) {
         this.datos = datos;
-        this.inflater = inflater;
+        this.inflater = LayoutInflater.from(context);
         this.context = context;
         this.listener = listener;
     }
@@ -63,6 +62,12 @@ public class AdaptadorListaChatsDueno extends RecyclerView.Adapter<AdaptadorList
         void bindData(final ChatElementoList lista){
             String nameLastName = lista.getName_Reciever() + " " + lista.getLastName_Reciever();
             NombreApellido.setText(nameLastName);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(lista);
+                }
+            });
         }
 
 

@@ -283,11 +283,12 @@ public class ChatActivity extends AppCompatActivity {
                 }
                 if (!itExists)
                 {
+                    String newUID =  database.getReference("chat/").push().getKey();
                     if(esDueno)
                     {
                         Chat myNewChat = new Chat(mySender.getId(), myReciever.getId());
                         mySender.agregarChat(myNewChat);
-                        myRefU = database.getReference("chat/" + mySender.getId() + "/");
+                        myRefU = database.getReference("chat/" + newUID + "/");
                         myRefU.setValue(myNewChat);
                         myNewChat.agregarMensaje(nuevoMensaje);
                         myRefU.setValue(myNewChat);
@@ -296,7 +297,7 @@ public class ChatActivity extends AppCompatActivity {
                     else {
                         Chat myNewChat = new Chat(myReciever.getId(), mySender.getId());
                         mySender.agregarChat(myNewChat);
-                        myRefU = database.getReference("chat/" + myReciever.getId() + "/");
+                        myRefU = database.getReference("chat/" + newUID + "/");
                         myRefU.setValue(myNewChat);
                         myNewChat.agregarMensaje(nuevoMensaje);
                         myRefU.setValue(myNewChat);
