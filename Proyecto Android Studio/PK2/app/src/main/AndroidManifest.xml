@@ -96,7 +96,9 @@
         <activity
             android:name=".ChatActivity"
             android:label="Chat" />
-
+        <activity
+            android:name=".activity_admin_chats"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
