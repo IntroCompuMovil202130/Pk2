@@ -52,7 +52,6 @@ public class activity_admin_chats extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         elementos = new ArrayList<>();
         userIDList = new ArrayList<>();
-        cargar();
 
     }
     private void cargar()
@@ -70,6 +69,7 @@ public class activity_admin_chats extends AppCompatActivity {
                         userIDList.add(actual.getId_Usuario());
                     }
                 }
+                elementos.clear();
                 createElements();
             }
 
@@ -79,6 +79,13 @@ public class activity_admin_chats extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        userIDList.clear();
+        cargar();
     }
 
     private void createElements()
